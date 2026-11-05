@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Noto Sans KR', ui-sans-serif, system-ui, sans-serif;
+  --color-paper: #faf7f0;
+  --color-ink: #1c1917;
+  --color-seal: #b91c1c;
+}
+
+body {
+  @apply bg-paper text-ink antialiased;
+}
