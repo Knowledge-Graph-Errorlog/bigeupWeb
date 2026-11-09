@@ -21,7 +21,8 @@ pnpm preview   # 빌드 결과 미리보기
 | `/checkout/:id` | 주문·결제 |
 
 - 상품·가격은 `src/data/products.ts`, 색은 `src/index.css`의 `@theme`, 로고는 `src/components/Logo.tsx` 한 곳에서 바꾼다 (지금은 모두 임시).
-- 주소가 여러 개인 SPA라, 배포할 때 모든 경로를 `index.html`로 돌려주는 설정이 필요하다.
+- 배포: `main`에 머지하면 Vercel이 자동 배포한다 (https://bigeup-web.vercel.app). PR마다 미리보기 주소도 생긴다.
+- 주소가 여러 개인 SPA라 `vercel.json`에서 모든 경로를 `index.html`로 돌려준다.
 
 ## 참고
 - 결제하기·3문제 맛보기 버튼은 아직 "준비 중" 안내 창만 띄운다.
