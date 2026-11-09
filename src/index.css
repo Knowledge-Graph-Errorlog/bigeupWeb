@@ -1,12 +1,28 @@
 @import 'tailwindcss';
 
+/* 임시 색. 브랜드 색이 정해지면 여기만 바꾼다. */
 @theme {
   --font-sans: 'Noto Sans KR', ui-sans-serif, system-ui, sans-serif;
   --color-paper: #faf7f0;
+  --color-paper-deep: #f1ebdd;
   --color-ink: #1c1917;
-  --color-seal: #b91c1c;
+  --color-ink-soft: #57534e;
+  --color-line: #e7e0d2;
+  --color-seal: #b4231f;
+  --color-seal-deep: #8f1915;
+  --color-seal-soft: #fbe9e7;
+
+  /* 과목별 표지 색 */
+  --color-book-prob: #2f4a6d;
+  --color-book-algebra: #3d6b4f;
+  --color-book-calc: #7a4a2a;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   @apply bg-paper text-ink antialiased;
+  word-break: keep-all;
 }
