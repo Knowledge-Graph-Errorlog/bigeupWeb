@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { COMPANY, contactText } from '../data/company'
+import { logout, useLoggedIn } from '../lib/auth'
 import Logo from './Logo'
 
 export default function Layout() {
   const { pathname } = useLocation()
+  const loggedIn = useLoggedIn()
   // 페이지를 옮기면 맨 위로. scrollTo의 반환값(최신 Chrome은 Promise)을 effect에서 돌려주면
   // React가 정리 함수로 착각해 화면이 지워지므로, 블록으로 감싸 아무것도 돌려주지 않는다.
   useEffect(() => {
@@ -16,7 +18,16 @@ export default function Layout() {
       <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Logo />
-          <nav>
+          <nav className="flex items-center gap-1 sm:gap-2">
+            {loggedIn ? (
+              <button type="button" onClick={() => void logout()} className="rounded-lg px-3 py-2 text-sm text-ink-soft hover:bg-paper-deep">
+                로그아웃
+              </button>
+            ) : (
+              <Link to={`/login?next=${encodeURIComponent(pathname)}`} className="rounded-lg px-3 py-2 text-sm text-ink-soft hover:bg-paper-deep">
+                로그인
+              </Link>
+            )}
             <NavLink
               to="/pass"
               className={({ isActive }) =>

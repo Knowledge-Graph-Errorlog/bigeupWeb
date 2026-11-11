@@ -2,6 +2,10 @@ import { Route, Routes } from 'react-router'
 import { ComingSoonProvider } from './components/ComingSoon'
 import Layout from './components/Layout'
 import Checkout from './pages/Checkout'
+import { CheckoutFail, CheckoutSuccess } from './pages/CheckoutResult'
+import KakaoCallback from './pages/auth/KakaoCallback'
+import Login from './pages/auth/Login'
+import Signup from './pages/auth/Signup'
 import Landing from './pages/Landing'
 import NotFound from './pages/NotFound'
 import PassShop from './pages/PassShop'
@@ -18,7 +22,12 @@ export default function App() {
           <Route index element={<Landing />} />
           <Route path="pass" element={<PassShop />} />
           <Route path="pass/:id" element={<ProductDetail />} />
+          <Route path="checkout/success" element={<CheckoutSuccess />} />
+          <Route path="checkout/fail" element={<CheckoutFail />} />
           <Route path="checkout/:id" element={<Checkout />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="auth/kakao/callback" element={<KakaoCallback />} />
           {/* 약관류: 앱도 이 주소를 연다 (frontend VITE_TERMS_URL·VITE_PRIVACY_URL·VITE_REFUND_URL) */}
           <Route path="terms" element={<Terms />} />
           <Route path="privacy" element={<Privacy />} />
