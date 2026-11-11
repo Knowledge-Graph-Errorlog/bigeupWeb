@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 import BookCover from '../components/BookCover'
 import { useComingSoon } from '../components/ComingSoon'
+import { USE_PERIOD } from '../data/company'
 import { findProduct, won } from '../data/products'
 import NotFound from './NotFound'
 
@@ -48,8 +49,13 @@ export default function Checkout() {
             </p>
             <h2 className="mt-5 text-base font-bold">환불 안내</h2>
             <p className="mt-3 text-ink-soft">
-              결제 후 7일 안에 AI 선생님 질문을 쓰지 않았다면 전액 환불받을 수 있어요.
+              결제 후 7일 안에 AI 선생님 질문을 쓰지 않았다면 전액 환불받을 수 있어요.{' '}
+              <Link to="/refund" className="underline">
+                환불 정책 보기
+              </Link>
             </p>
+            <h2 className="mt-5 text-base font-bold">이용 기간</h2>
+            <p className="mt-3 text-ink-soft">{USE_PERIOD} 이용할 수 있어요.</p>
           </section>
         </div>
 

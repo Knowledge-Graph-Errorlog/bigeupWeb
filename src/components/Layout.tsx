@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router'
+import { Link, NavLink, Outlet, useLocation } from 'react-router'
+import { COMPANY, contactText } from '../data/company'
 import Logo from './Logo'
 
 export default function Layout() {
@@ -36,9 +37,34 @@ export default function Layout() {
 
       <footer className="border-t border-line bg-paper-deep">
         <div className="mx-auto max-w-6xl px-4 py-8 text-xs leading-relaxed text-ink-soft sm:px-6">
-          <p className="font-bold text-ink">기출비급</p>
-          {/* 사업자 정보·약관 링크는 확정되면 넣는다 */}
-          <p className="mt-2">© 2026 기출비급. All rights reserved.</p>
+          <nav className="flex flex-wrap gap-x-4 gap-y-1 font-bold text-ink">
+            <Link to="/terms" className="hover:underline">
+              이용약관
+            </Link>
+            <Link to="/privacy" className="hover:underline">
+              개인정보 처리방침
+            </Link>
+            <Link to="/refund" className="hover:underline">
+              환불 정책
+            </Link>
+          </nav>
+          {/* 카드사 심사 필수: 상호·대표자·사업자등록번호·통신판매업 신고번호·주소·전화 (사업자등록증과 같게) */}
+          <dl className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
+            {[
+              ['상호', COMPANY.name],
+              ['대표자', COMPANY.ceo],
+              ['사업자등록번호', COMPANY.bizNo],
+              ['통신판매업 신고번호', COMPANY.mailOrderNo],
+              ['주소', COMPANY.address],
+              ['고객센터', contactText()],
+            ].map(([k, v]) => (
+              <div key={k} className="flex gap-1">
+                <dt>{k}</dt>
+                <dd className="text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4">© 2026 {COMPANY.name}. {COMPANY.service}. All rights reserved.</p>
         </div>
       </footer>
     </div>
