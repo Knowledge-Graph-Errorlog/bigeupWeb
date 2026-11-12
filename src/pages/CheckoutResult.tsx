@@ -2,13 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { won } from '../data/products'
 import { ApiError } from '../lib/api'
-import { confirmOrder, getOrder, type Order } from '../lib/pass'
-
-const SUBJECT: Record<string, string> = {
-  'math-prob-stat': '확률과 통계',
-  'math-algebra': '대수',
-  'math-calculus1': '미적분Ⅰ',
-}
+import { confirmOrder, getOrder, subjectName, type Order } from '../lib/pass'
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
@@ -64,7 +58,7 @@ export function CheckoutSuccess() {
         detail={
           <>
             <p>
-              열린 교재: <strong className="text-ink">{order.subjects.map((s) => SUBJECT[s] ?? s).join(', ')}</strong>
+              열린 교재: <strong className="text-ink">{order.subjects.map(subjectName).join(', ')}</strong>
             </p>
             <p className="mt-2">태블릿에서 기출비급 앱을 열고, 지금 로그인한 계정으로 로그인하면 바로 풀 수 있어요.</p>
             <p className="mt-2">주문 번호 {order.orderId}</p>
@@ -119,6 +113,11 @@ function Result({
         <Link to="/" className="rounded-xl border border-line bg-white px-5 py-3 font-bold">
           홈으로
         </Link>
+        {ok && (
+          <Link to="/me" className="rounded-xl bg-ink px-5 py-3 font-bold text-white">
+            내 교재 보기
+          </Link>
+        )}
         {retry && (
           <Link to={retry} className="rounded-xl bg-seal px-5 py-3 font-bold text-white">
             다시 결제하기

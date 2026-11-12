@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { COMPANY } from '../data/company'
-import { logout, useLoggedIn } from '../lib/auth'
+import { useLoggedIn } from '../lib/auth'
 import Logo from './Logo'
 
 export default function Layout() {
@@ -20,9 +20,14 @@ export default function Layout() {
           <Logo />
           <nav className="flex items-center gap-1 sm:gap-2">
             {loggedIn ? (
-              <button type="button" onClick={() => void logout()} className="rounded-lg px-3 py-2 text-sm text-ink-soft hover:bg-paper-deep">
-                로그아웃
-              </button>
+              <NavLink
+                to="/me"
+                className={({ isActive }) =>
+                  `rounded-lg px-3 py-2 text-sm hover:bg-paper-deep ${isActive ? 'font-bold text-ink' : 'text-ink-soft'}`
+                }
+              >
+                내 정보
+              </NavLink>
             ) : (
               <Link to={`/login?next=${encodeURIComponent(pathname)}`} className="rounded-lg px-3 py-2 text-sm text-ink-soft hover:bg-paper-deep">
                 로그인

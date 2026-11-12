@@ -7,6 +7,7 @@ import KakaoCallback from './pages/auth/KakaoCallback'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Landing from './pages/Landing'
+import MyPage from './pages/MyPage'
 import NotFound from './pages/NotFound'
 import PassShop from './pages/PassShop'
 import ProductDetail from './pages/ProductDetail'
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="checkout/:id" element={<Checkout />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="me" element={<MyPage />} />
           <Route path="auth/kakao/callback" element={<KakaoCallback />} />
           {/* 약관류: 앱도 이 주소를 연다 (frontend VITE_TERMS_URL·VITE_PRIVACY_URL·VITE_REFUND_URL) */}
           <Route path="terms" element={<Terms />} />
