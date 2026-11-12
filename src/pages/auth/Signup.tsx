@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router'
+import { Link, Navigate, useNavigate, useSearchParams } from 'react-router'
 import { ApiError } from '../../lib/api'
-import { getMe, putProfile, putTerms, safeNext, type Exam, type TermsAgreement } from '../../lib/auth'
+import { getMe, putProfile, putTerms, safeNext, useLoggedIn, type Exam, type TermsAgreement } from '../../lib/auth'
 
 // 웹 가입 마무리: 앱 가입 화면과 같은 약관 5개(필수 3) + 닉네임·응시 (backend 로그인-API 5·6번).
 const TERMS: { key: keyof TermsAgreement; label: string; required: boolean; to?: string }[] = [
@@ -31,11 +31,14 @@ export default function Signup() {
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
+  const loggedIn = useLoggedIn()
+
   useEffect(() => {
+    if (!loggedIn) return
     getMe()
       .then((me) => (me.nextStep === 'HOME' ? navigate(next, { replace: true }) : setStep(me.nextStep)))
       .catch(() => navigate(`/login?next=${encodeURIComponent(next)}`, { replace: true }))
-  }, [navigate, next])
+  }, [loggedIn, navigate, next])
 
   const all = TERMS.every((t) => checks[t.key])
   const canGo = TERMS.every((t) => !t.required || checks[t.key])
@@ -67,6 +70,7 @@ export default function Signup() {
     }
   }
 
+  if (!loggedIn) return <Navigate to={`/login?next=${encodeURIComponent(next)}`} replace />
   if (step === 'loading') return <p className="py-24 text-center text-ink-soft">불러오는 중이에요…</p>
 
   return (

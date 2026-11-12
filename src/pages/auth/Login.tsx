@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router'
-import { ApiError, hasServer } from '../../lib/api'
+import { Link, Navigate, useNavigate, useSearchParams } from 'react-router'
+import { ApiError, hasServer, tokens } from '../../lib/api'
 import { afterLogin, devLogin, loginWithIdToken, safeNext, type NextStep } from '../../lib/auth'
 import {
   APPLE_SERVICES_ID,
@@ -19,6 +19,8 @@ export default function Login() {
   const navigate = useNavigate()
   const [error, setError] = useState('')
   const googleRef = useRef<HTMLDivElement>(null)
+  // 이 화면을 열 때 이미 로그인돼 있었나 (로그인하는 도중에 바뀌는 값이 아니라 처음 값만 본다 — 가입 화면으로 보내는 흐름과 겹치지 않게)
+  const [already] = useState(() => tokens.get() !== null)
 
   const go = (step: NextStep) => navigate(afterLogin(step, next), { replace: true })
   const fail = (e: unknown) =>
@@ -47,6 +49,8 @@ export default function Login() {
       fail(e)
     }
   }
+
+  if (already) return <Navigate to={next} replace />
 
   const none = !KAKAO_REST_KEY && !GOOGLE_CLIENT_ID && !APPLE_SERVICES_ID && !DEV_LOGIN
 

@@ -25,7 +25,7 @@ pnpm preview   # 빌드 결과 미리보기
 | `/terms` · `/privacy` · `/refund` | 이용약관·개인정보 처리방침·환불·배송 정책 (앱도 이 주소를 연다). 법률 검토 전 초안 |
 
 - 상품·가격은 `src/data/products.ts`, 색은 `src/index.css`의 `@theme`, 로고는 `src/components/Logo.tsx` 한 곳에서 바꾼다 (지금은 모두 임시).
-- 배포: `main`에 머지하면 Vercel이 자동 배포한다 (https://bigeup-web.vercel.app). PR마다 미리보기 주소도 생긴다.
+- 배포: `main`에 머지하면 Vercel이 자동 배포한다 (https://www.bigeup.com — `bigeup-web.vercel.app`은 여기로 보낸다. 로그인·서버 호출은 www.bigeup.com만 허용돼 있다). PR마다 미리보기 주소도 생긴다.
 - 주소가 여러 개인 SPA라 `vercel.json`에서 모든 경로를 `index.html`로 돌려준다.
 
 ## 결제·로그인 설정 (`.env.example`)
