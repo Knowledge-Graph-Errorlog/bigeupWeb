@@ -5,7 +5,7 @@ import { COMPANY, LEGAL_EFFECTIVE_DATE } from '../data/company'
 const DOCS = [
   { to: '/terms', label: '이용약관' },
   { to: '/privacy', label: '개인정보 처리방침' },
-  { to: '/refund', label: '환불 정책' },
+  { to: '/refund', label: '환불·배송 정책' },
 ]
 
 /** 약관류 페이지 공통 틀: 제목, 시행일, 다른 문서로 가는 탭 */

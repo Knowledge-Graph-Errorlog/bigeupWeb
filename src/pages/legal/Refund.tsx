@@ -2,20 +2,30 @@ import { Link } from 'react-router'
 import LegalPage, { Article, Items } from '../../components/LegalPage'
 import { COMPANY, USE_PERIOD, contactText } from '../../data/company'
 
-// 환불 정책. 토스페이먼츠 카드사 심사: 무형 상품은 "서비스 제공 기간 + 환불 정책"이 보여야 한다.
+// 환불·배송 정책. 토스페이먼츠 카드사 심사: 환불과 배송(무형 상품은 제공 방법·제공 기간) 정책이 자세히 보여야 한다.
 // ❓ 환불 조건(7일·AI 질문 미사용)은 팀 확정 전이다. 바뀌면 여기, 주문 화면, 자주 묻는 질문을 같이 고친다.
 export default function Refund() {
   return (
-    <LegalPage title="환불 정책" current="/refund">
-      <Article title="1. 상품과 이용 기간">
+    <LegalPage title="환불·배송 정책" current="/refund">
+      <Article title="1. 배송(제공) 안내와 이용 기간">
         <p>
-          {COMPANY.service} 교재(기출비급패스 3권, 과목별 단권)는 태블릿 앱에서 이용하는 디지털 콘텐츠입니다. 실물을 배송하지
-          않습니다.
+          {COMPANY.service} 교재(기출비급패스 3권, 과목별 단권)는 태블릿 앱에서 이용하는 디지털 콘텐츠입니다.
         </p>
-        <p>
-          <strong className="text-ink">이용 기간은 {USE_PERIOD}입니다.</strong> 결제가 끝나면 결제한 계정으로 앱에 로그인해 바로
-          이용할 수 있습니다.
-        </p>
+        <Items>
+          <li>
+            <strong className="text-ink">실물 배송이 없습니다.</strong> 택배로 보내는 책이나 상품이 없고, 배송비도 없습니다.
+          </li>
+          <li>
+            <strong className="text-ink">결제가 끝나면 바로 제공됩니다.</strong> 결제한 계정에 교재가 즉시 열립니다.
+          </li>
+          <li>
+            태블릿(iPad, 갤럭시 탭)에 {COMPANY.service} 앱을 설치하고, 결제한 계정으로 로그인하면 이용할 수 있습니다.
+          </li>
+          <li>
+            <strong className="text-ink">이용 기간은 {USE_PERIOD}입니다.</strong>
+          </li>
+          <li>결제했는데 교재가 열리지 않으면 고객센터({contactText()})로 알려 주세요. 확인해서 바로 열어 드립니다.</li>
+        </Items>
       </Article>
 
       <Article title="2. 전액 환불">

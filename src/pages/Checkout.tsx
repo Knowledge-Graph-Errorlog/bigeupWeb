@@ -116,7 +116,7 @@ export default function Checkout() {
             <p className="mt-3 text-ink-soft">
               결제 후 7일 안에 AI 선생님 질문을 쓰지 않았다면 전액 환불받을 수 있어요.{' '}
               <Link to="/refund" className="underline">
-                환불 정책 보기
+                환불·배송 정책 보기
               </Link>
             </p>
             <p className="mt-3 text-ink-soft">만 19세 미만은 보호자의 동의를 받은 뒤 결제해 주세요.</p>

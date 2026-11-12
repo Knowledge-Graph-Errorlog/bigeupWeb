@@ -51,12 +51,14 @@ export default function ProductDetail() {
           {/* 카드사 심사: 무형 상품은 서비스 제공 기간과 환불 정책이 상품 페이지에서 보여야 한다 */}
           <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
             <dt className="font-bold">이용 기간</dt>
-            <dd>{USE_PERIOD} (실물 배송 없음, 결제한 계정으로 태블릿 앱에서 이용)</dd>
+            <dd>{USE_PERIOD}</dd>
+            <dt className="font-bold">배송</dt>
+            <dd>실물 배송 없음(배송비 없음) · 결제 즉시 결제한 계정으로 태블릿 앱에서 이용</dd>
             <dt className="font-bold">환불</dt>
             <dd>
               결제 후 7일 안, AI 선생님 질문을 쓰지 않았다면 전액 환불 ·{' '}
               <Link to="/refund" className="underline">
-                환불 정책
+                환불·배송 정책
               </Link>
             </dd>
           </dl>

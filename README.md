@@ -21,7 +21,7 @@ pnpm preview   # 빌드 결과 미리보기
 | `/checkout/:id` | 주문·결제 — 로그인 필요, 서버가 주문(금액)을 만들고 토스페이먼츠 결제위젯을 연다 |
 | `/checkout/success` · `/checkout/fail` | 결제창에서 돌아오는 곳. 성공이면 서버가 승인하고 교재가 열린다 |
 | `/login` · `/signup` · `/auth/kakao/callback` | 앱과 같은 소셜 로그인(카카오·구글·애플), 웹 가입 마무리(약관·닉네임) |
-| `/terms` · `/privacy` · `/refund` | 이용약관·개인정보 처리방침·환불 정책 (앱도 이 주소를 연다). 법률 검토 전 초안 |
+| `/terms` · `/privacy` · `/refund` | 이용약관·개인정보 처리방침·환불·배송 정책 (앱도 이 주소를 연다). 법률 검토 전 초안 |
 
 - 상품·가격은 `src/data/products.ts`, 색은 `src/index.css`의 `@theme`, 로고는 `src/components/Logo.tsx` 한 곳에서 바꾼다 (지금은 모두 임시).
 - 배포: `main`에 머지하면 Vercel이 자동 배포한다 (https://bigeup-web.vercel.app). PR마다 미리보기 주소도 생긴다.

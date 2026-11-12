@@ -56,7 +56,7 @@ export default function Terms() {
 
       <Article title="제7조 (청약철회와 환불)">
         <p>
-          청약철회와 환불은 <Link to="/refund" className="underline">환불 정책</Link>을 따릅니다.
+          청약철회와 환불은 <Link to="/refund" className="underline">환불·배송 정책</Link>을 따릅니다.
         </p>
       </Article>
 

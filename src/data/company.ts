@@ -14,7 +14,7 @@ export const COMPANY = {
 } as const
 
 // 약관·개인정보 처리방침·환불 정책 시행일. 글을 바꾸면 날짜도 바꾸고 옛 글은 git 이력으로 남긴다.
-export const LEGAL_EFFECTIVE_DATE = '2026년 11월 11일'
+export const LEGAL_EFFECTIVE_DATE = '2026년 11월 12일'
 
 // 교재 이용 기간. 토스페이먼츠는 무형 상품의 제공 기간이 12개월을 넘으면 가맹이 안 된다.
 export const USE_PERIOD = '결제일부터 12개월'
