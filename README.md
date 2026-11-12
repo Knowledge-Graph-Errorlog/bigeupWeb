@@ -31,6 +31,7 @@ pnpm preview   # 빌드 결과 미리보기
 - `VITE_API_BASE_URL`: 백엔드 주소. 결제 API는 backend `docs/결제-API.md`, 로그인은 `docs/로그인-API.md`
 - `VITE_GOOGLE_CLIENT_ID` · `VITE_APPLE_SERVICES_ID` · `VITE_KAKAO_REST_KEY`: 없으면 그 로그인 버튼이 안 보인다. 서버 `GOOGLE_CLIENT_IDS` · `APPLE_CLIENT_IDS` · `KAKAO_APP_KEYS`(+`KAKAO_REST_API_KEY`, `KAKAO_WEB_REDIRECT_URIS`)와 짝을 맞춘다
 - `VITE_DEV_LOGIN=1`: 개발 서버 전용 로그인 버튼 (운영 빌드에 넣지 않는다)
+- 운영 빌드 기본값은 `.env.production`에 있다 (서버 주소 = 개발 서버, 구글 클라이언트 ID). Vercel 환경 변수에 같은 이름을 넣으면 그 값이 이긴다
 - 토스 클라이언트 키는 넣지 않는다 — 서버가 주문과 함께 준다 (서버 시크릿 키와 짝). 시크릿 키는 웹에 절대 두지 않는다
 - 사업자 정보·이용 기간은 `src/data/company.ts` 한 곳
 
