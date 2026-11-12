@@ -40,6 +40,8 @@ export default function Checkout() {
       } catch (e) {
         if (e instanceof ApiError && e.code === 'PASS_ALREADY_OWNED') setError({ text: '이미 가진 교재예요.', owned: true })
         else if (e instanceof ApiError && e.code === 'PASS_UNAVAILABLE') setError({ text: '지금은 결제할 수 없어요. 잠시 뒤 다시 시도해 주세요.' })
+        // 서버 주소가 없거나 결제 API가 아직 배포되지 않았을 때 (결제 오픈 전)
+        else if (e instanceof ApiError && (e.code === 'NO_SERVER' || e.status === 404)) setError({ text: '결제 준비 중이에요. 곧 열려요.' })
         else setError({ text: '결제 화면을 불러오지 못했어요. 새로고침해 주세요.' })
       }
     })()
@@ -96,7 +98,7 @@ export default function Checkout() {
           </section>
 
           {/* 토스페이먼츠 결제위젯: 결제 수단과 결제 약관 (색·모양은 토스 결제 어드민에서) */}
-          <section className="overflow-hidden rounded-2xl border border-line bg-white">
+          <section className={`overflow-hidden rounded-2xl border border-line bg-white ${error && !ready ? 'hidden' : ''}`}>
             <div id="payment-method" />
             <div id="agreement" />
             {!ready && !error && <p className="p-6 text-sm text-ink-soft">결제 수단을 불러오는 중이에요…</p>}
