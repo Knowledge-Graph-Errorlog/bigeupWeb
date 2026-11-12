@@ -1,3 +1,5 @@
+import { USE_PERIOD } from './company'
+
 export type Subject = 'prob' | 'algebra' | 'calc'
 
 export type Product = {
@@ -17,7 +19,7 @@ export const SUBJECT_NAME: Record<Subject, string> = {
   calc: '미적분Ⅰ',
 }
 
-const PERIOD = '2028 수능까지 이용'
+const PERIOD = `${USE_PERIOD} 이용`
 
 export const PRODUCTS: Product[] = [
   {
