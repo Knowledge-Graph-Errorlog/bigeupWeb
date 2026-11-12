@@ -29,7 +29,7 @@ export default function Layout() {
                 내 정보
               </NavLink>
             ) : (
-              <Link to={`/login?next=${encodeURIComponent(pathname)}`} className="rounded-lg px-3 py-2 text-sm text-ink-soft hover:bg-paper-deep">
+              <Link to={/^\/(login|signup|auth)(\/|$)/.test(pathname) ? '/login' : `/login?next=${encodeURIComponent(pathname)}`} className="rounded-lg px-3 py-2 text-sm text-ink-soft hover:bg-paper-deep">
                 로그인
               </Link>
             )}

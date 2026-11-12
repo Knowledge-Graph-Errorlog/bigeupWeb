@@ -66,22 +66,26 @@ async function toError(res: Response): Promise<ApiError> {
   }
 }
 
-let refreshing: Promise<boolean> | null = null
+/** ok: 새 출입증 받음 · rejected: 서버가 거절(다시 로그인) · error: 네트워크·서버 장애(로그인은 유지) */
+type RefreshResult = 'ok' | 'rejected' | 'error'
+let refreshing: Promise<RefreshResult> | null = null
 
 /** 재발급. 동시에 여러 요청이 401을 받아도 한 번만 */
-function refresh(): Promise<boolean> {
+function refresh(): Promise<RefreshResult> {
   const t = tokens.get()
-  if (!t) return Promise.resolve(false)
+  if (!t) return Promise.resolve('rejected')
   refreshing ??= raw('/api/v1/auth/refresh', { method: 'POST', body: JSON.stringify({ refreshToken: t.refreshToken }) }, false)
-    .then(async (res) => {
-      if (!res.ok) {
-        tokens.set(null)
-        return false
+    .then(async (res): Promise<RefreshResult> => {
+      if (res.ok) {
+        tokens.set((await res.json()) as Tokens)
+        return 'ok'
       }
-      tokens.set((await res.json()) as Tokens)
-      return true
+      // 재발급권이 만료·폐기된 것(4xx)만 로그아웃. 서버 장애(5xx)면 로그인은 그대로 둔다
+      if (res.status >= 500) return 'error'
+      tokens.set(null)
+      return 'rejected'
     })
-    .catch(() => false)
+    .catch((): RefreshResult => 'error')
     .finally(() => {
       refreshing = null
     })
@@ -96,7 +100,11 @@ export async function api<T>(path: string, init: RequestInit = {}, auth = true):
     res = await raw(path, init, auth)
     if (res.status === 401 && auth && tokens.get()) {
       const err = await toError(res.clone())
-      if (err.code === 'TOKEN_EXPIRED' && (await refresh())) res = await raw(path, init, auth)
+      if (err.code === 'TOKEN_EXPIRED') {
+        const r = await refresh()
+        if (r === 'ok') res = await raw(path, init, auth)
+        else if (r === 'error') throw new Error('refresh failed') // 아래에서 NETWORK_ERROR로 (로그아웃하지 않는다)
+      }
     }
   } catch {
     throw new ApiError(0, 'NETWORK_ERROR', '인터넷 연결을 확인해 주세요.')

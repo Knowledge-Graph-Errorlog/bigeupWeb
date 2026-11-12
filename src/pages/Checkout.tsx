@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, Navigate, useLocation, useParams } from 'react-router'
+import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router'
 import BookCover from '../components/BookCover'
 import { USE_PERIOD } from '../data/company'
 import { findProduct, won } from '../data/products'
@@ -11,9 +11,16 @@ import NotFound from './NotFound'
 
 // 주문·결제. 로그인 → 서버가 주문(금액)을 만들고 → 토스 결제위젯 → 성공하면 /checkout/success 에서 서버가 승인.
 export default function Checkout() {
-  const product = findProduct(useParams().id)
+  // 상품이 바뀌면(주소의 :id) 주문과 결제위젯을 처음부터 다시 만든다
+  const { id } = useParams()
+  return <CheckoutFor key={id} id={id} />
+}
+
+function CheckoutFor({ id }: { id: string | undefined }) {
+  const product = findProduct(id)
   const loggedIn = useLoggedIn()
   const location = useLocation()
+  const navigate = useNavigate()
   const [agreed, setAgreed] = useState(false)
   const [order, setOrder] = useState<CreatedOrder | null>(null)
   const [ready, setReady] = useState(false)
@@ -38,13 +45,17 @@ export default function Checkout() {
         widgets.current = w
         setReady(true)
       } catch (e) {
-        if (e instanceof ApiError && e.code === 'PASS_ALREADY_OWNED') setError({ text: '이미 가진 교재예요.', owned: true })
+        // 로그인만 하고 가입(약관·프로필)을 마치지 않은 계정 → 가입부터
+        if (e instanceof ApiError && e.code === 'SIGNUP_INCOMPLETE')
+          navigate(`/signup?next=${encodeURIComponent(location.pathname)}`, { replace: true })
+        else if (e instanceof ApiError && e.code === 'PASS_ALREADY_OWNED') setError({ text: '이미 가진 교재예요.', owned: true })
         else if (e instanceof ApiError && e.code === 'PASS_UNAVAILABLE') setError({ text: '지금은 결제할 수 없어요. 잠시 뒤 다시 시도해 주세요.' })
         // 서버 주소가 없거나 결제 API가 아직 배포되지 않았을 때 (결제 오픈 전)
         else if (e instanceof ApiError && (e.code === 'NO_SERVER' || e.status === 404)) setError({ text: '결제 준비 중이에요. 곧 열려요.' })
         else setError({ text: '결제 화면을 불러오지 못했어요. 새로고침해 주세요.' })
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product, loggedIn])
 
   if (!product) return <NotFound message="찾는 상품이 없어요" />
