@@ -57,24 +57,16 @@ type GoogleId = {
   renderButton(el: HTMLElement, o: Record<string, unknown>): void
 }
 
-/** 구글 버튼(large)의 크기. 너비는 400까지만 된다 */
-const GOOGLE_BUTTON = { maxWidth: 400, height: 40 }
-
 /**
- * 구글 버튼을 el 안에 그리고, el 을 꽉 채우게 늘린다.
- * 구글 버튼은 브라우저에 구글 로그인이 남아 있으면 "○○ 계정으로 계속"(이름·이메일)으로 바뀌고 끌 수 없다.
- * 그래서 화면에는 우리 버튼을 보여 주고, 이 구글 버튼은 그 위에 투명하게 겹쳐 클릭만 받게 한다 (Login.tsx).
+ * 구글 버튼은 브라우저에 구글 로그인이 남아 있으면 "○○ 계정으로 계속"(이름·이메일)으로 바뀌고, 끄는 설정이 없다.
+ * 우리 버튼 위에 투명하게 겹치는 방법은 쓰지 않는다 — 구글이 가려진 버튼의 클릭을 무시해서 로그인이 안 된다 (2026-11-12 운영에서 확인, 되돌림).
+ * 늘 같은 모양이 필요하면 구글 OAuth 리디렉션 방식(승인된 리디렉션 URI 등록 필요)으로 바꿔야 한다.
  */
 export async function renderGoogleButton(el: HTMLElement, onIdToken: (idToken: string) => void) {
   await loadScript('https://accounts.google.com/gsi/client')
   const g = (window as unknown as { google: { accounts: { id: GoogleId } } }).google.accounts.id
   g.initialize({ client_id: GOOGLE_CLIENT_ID, callback: (r) => onIdToken(r.credential) })
-  const boxWidth = el.clientWidth || 320
-  const width = Math.min(GOOGLE_BUTTON.maxWidth, boxWidth)
-  g.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', locale: 'ko', width })
-  // 우리 버튼(el) 전체가 눌리게: 가로는 모자란 만큼, 세로는 넉넉히 늘린다 (넘치는 부분은 부모가 자른다)
-  el.style.transformOrigin = '0 0'
-  el.style.transform = `scale(${boxWidth / width}, ${((el.clientHeight || 52) / GOOGLE_BUTTON.height) * 1.15})`
+  g.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', text: 'continue_with', locale: 'ko', width: el.clientWidth || 320 })
 }
 
 // ── 애플 (Sign in with Apple JS): 팝업으로 확인서와 인증 코드를 받는다
