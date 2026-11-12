@@ -4,36 +4,46 @@ import { loadScript } from './script'
 export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? ''
 export const APPLE_SERVICES_ID = import.meta.env.VITE_APPLE_SERVICES_ID ?? ''
 export const KAKAO_REST_KEY = import.meta.env.VITE_KAKAO_REST_KEY ?? ''
+/** 네이버 로그인 Client ID. 비어 있으면 네이버 버튼은 보이지 않는다 (서버 웹 로그인 주소가 생긴 뒤 넣는다) */
+export const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID ?? ''
 export const DEV_LOGIN = import.meta.env.VITE_DEV_LOGIN === '1'
 
-/** 카카오 콘솔에 등록하는 Redirect URI (서버 KAKAO_WEB_REDIRECT_URIS 에도) */
-export const kakaoRedirectUri = () => `${window.location.origin}/auth/kakao/callback`
+// ── 카카오·네이버: 인가 화면으로 갔다가 코드(code)를 들고 돌아온다. 코드를 확인서로 바꾸는 일은 서버가 한다
+export type CodeProvider = 'kakao' | 'naver'
 
-const STATE_KEY = 'bigeup-kakao-state'
+const AUTHORIZE: Record<CodeProvider, { url: string; clientId: () => string }> = {
+  kakao: { url: 'https://kauth.kakao.com/oauth/authorize', clientId: () => KAKAO_REST_KEY },
+  naver: { url: 'https://nid.naver.com/oauth2/authorize', clientId: () => NAVER_CLIENT_ID },
+}
 
-/** 카카오 인가 화면으로 이동. state 로 위조 요청을 막고, 돌아올 곳(next)을 같이 들고 간다 */
-export function startKakaoLogin(next: string) {
+/** 각 콘솔에 등록하는 돌아올 주소 (서버 설정에도 같은 값) */
+export const codeRedirectUri = (p: CodeProvider) => `${window.location.origin}/auth/${p}/callback`
+
+const stateKey = (p: CodeProvider) => `bigeup-${p}-state`
+
+/** 인가 화면으로 이동. state 로 위조 요청을 막고, 돌아올 곳(next)을 같이 들고 간다 */
+export function startCodeLogin(p: CodeProvider, next: string) {
   const state = crypto.randomUUID()
   try {
-    sessionStorage.setItem(STATE_KEY, JSON.stringify({ state, next }))
+    sessionStorage.setItem(stateKey(p), JSON.stringify({ state, next }))
   } catch {
-    // 저장이 막혀도 로그인은 되게 (돌아올 곳만 기본값)
+    // 저장이 막힌 브라우저면 돌아왔을 때 요청을 확인할 수 없어 다시 로그인하라고 안내한다
   }
   const q = new URLSearchParams({
-    client_id: KAKAO_REST_KEY,
-    redirect_uri: kakaoRedirectUri(),
+    client_id: AUTHORIZE[p].clientId(),
+    redirect_uri: codeRedirectUri(p),
     response_type: 'code',
     scope: 'openid',
     state,
   })
-  window.location.assign(`https://kauth.kakao.com/oauth/authorize?${q}`)
+  window.location.assign(`${AUTHORIZE[p].url}?${q}`)
 }
 
 /** 콜백의 state 가 우리가 보낸 것과 같으면 돌아올 곳을 준다 */
-export function takeKakaoState(state: string | null): { ok: boolean; next: string | null } {
+export function takeCodeState(p: CodeProvider, state: string | null): { ok: boolean; next: string | null } {
   try {
-    const raw = sessionStorage.getItem(STATE_KEY)
-    sessionStorage.removeItem(STATE_KEY)
+    const raw = sessionStorage.getItem(stateKey(p))
+    sessionStorage.removeItem(stateKey(p))
     const saved = raw ? (JSON.parse(raw) as { state: string; next: string }) : null
     return { ok: !!saved && saved.state === state, next: saved?.next ?? null }
   } catch {

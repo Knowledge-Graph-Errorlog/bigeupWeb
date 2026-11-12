@@ -7,9 +7,10 @@ import {
   DEV_LOGIN,
   GOOGLE_CLIENT_ID,
   KAKAO_REST_KEY,
+  NAVER_CLIENT_ID,
   appleSignIn,
   renderGoogleButton,
-  startKakaoLogin,
+  startCodeLogin,
 } from '../../lib/social'
 
 // 로그인. 앱과 같은 소셜 계정으로 들어와야 결제한 교재가 앱에서 열린다.
@@ -52,7 +53,7 @@ export default function Login() {
 
   if (already) return <Navigate to={next} replace />
 
-  const none = !KAKAO_REST_KEY && !GOOGLE_CLIENT_ID && !APPLE_SERVICES_ID && !DEV_LOGIN
+  const none = !KAKAO_REST_KEY && !NAVER_CLIENT_ID && !GOOGLE_CLIENT_ID && !APPLE_SERVICES_ID && !DEV_LOGIN
 
   return (
     <div className="mx-auto max-w-md px-4 py-14 sm:py-20">
@@ -67,10 +68,19 @@ export default function Login() {
         {KAKAO_REST_KEY && (
           <button
             type="button"
-            onClick={() => startKakaoLogin(next)}
+            onClick={() => startCodeLogin('kakao', next)}
             className="w-full rounded-xl bg-[#FEE500] py-3.5 font-bold text-[#191919]"
           >
             카카오로 계속하기
+          </button>
+        )}
+        {NAVER_CLIENT_ID && (
+          <button
+            type="button"
+            onClick={() => startCodeLogin('naver', next)}
+            className="w-full rounded-xl bg-[#03C75A] py-3.5 font-bold text-white"
+          >
+            네이버로 계속하기
           </button>
         )}
         {GOOGLE_CLIENT_ID && <div ref={googleRef} className="flex h-11 w-full justify-center" />}

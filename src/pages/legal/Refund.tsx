@@ -3,6 +3,7 @@ import LegalPage, { Article, Items } from '../../components/LegalPage'
 import { COMPANY, USE_PERIOD, contactText } from '../../data/company'
 
 // 환불·배송 정책. 토스페이먼츠 카드사 심사: 환불과 배송(무형 상품은 제공 방법·제공 기간) 정책이 자세히 보여야 한다.
+// ❓ 3문제 맛보기가 열리면 3번 항목에 "회사는 결제 전에 3문제 맛보기와 상품 설명으로 미리 확인할 기회를 드립니다."를 다시 넣는다 (2026-11-12에 뺌: 아직 없는 기능)
 // ❓ 환불 조건(7일·AI 질문 미사용)은 팀 확정 전이다. 바뀌면 여기, 주문 화면, 자주 묻는 질문을 같이 고친다.
 export default function Refund() {
   return (
@@ -38,8 +39,7 @@ export default function Refund() {
       <Article title="3. 환불이 제한되는 경우">
         <p>
           디지털 콘텐츠는 이용을 시작하면 되돌릴 수 없어서, 아래의 경우에는 「전자상거래 등에서의 소비자보호에 관한 법률」
-          제17조 제2항에 따라 청약철회(환불)가 제한됩니다. 회사는 결제 전에 3문제 맛보기와 상품 설명으로 미리 확인할 기회를
-          드립니다.
+          제17조 제2항에 따라 청약철회(환불)가 제한됩니다.
         </p>
         <Items>
           <li>결제일부터 7일이 지난 경우</li>

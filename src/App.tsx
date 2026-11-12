@@ -3,7 +3,7 @@ import { ComingSoonProvider } from './components/ComingSoon'
 import Layout from './components/Layout'
 import Checkout from './pages/Checkout'
 import { CheckoutFail, CheckoutSuccess } from './pages/CheckoutResult'
-import KakaoCallback from './pages/auth/KakaoCallback'
+import CodeCallback from './pages/auth/CodeCallback'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Landing from './pages/Landing'
@@ -29,7 +29,8 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="me" element={<MyPage />} />
-          <Route path="auth/kakao/callback" element={<KakaoCallback />} />
+          <Route path="auth/kakao/callback" element={<CodeCallback provider="kakao" />} />
+          <Route path="auth/naver/callback" element={<CodeCallback provider="naver" />} />
           {/* 약관류: 앱도 이 주소를 연다 (frontend VITE_TERMS_URL·VITE_PRIVACY_URL·VITE_REFUND_URL) */}
           <Route path="terms" element={<Terms />} />
           <Route path="privacy" element={<Privacy />} />
