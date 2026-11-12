@@ -20,7 +20,7 @@ pnpm preview   # 빌드 결과 미리보기
 | `/pass/:id` | 상품 상세 (`pass-3`, `prob`, `algebra`, `calc`) |
 | `/checkout/:id` | 주문·결제 — 로그인 필요, 서버가 주문(금액)을 만들고 토스페이먼츠 결제위젯을 연다 |
 | `/checkout/success` · `/checkout/fail` | 결제창에서 돌아오는 곳. 성공이면 서버가 승인하고 교재가 열린다 |
-| `/login` · `/signup` · `/auth/kakao/callback` · `/auth/naver/callback` | 앱과 같은 소셜 로그인(카카오·구글·애플, 네이버는 숨김), 웹 가입 마무리(약관·닉네임) |
+| `/login` · `/signup` · `/auth/kakao/callback` · `/auth/naver/callback` · `/auth/google/callback` | 앱과 같은 소셜 로그인(카카오·구글·애플, 네이버는 숨김), 웹 가입 마무리(약관·닉네임) |
 | `/me` | 내 정보 — 계정(닉네임·응시·로그인 방법), 가진 교재, 선택 동의, 로그아웃 (보기만. 바꾸기·계정 삭제는 앱에서) |
 | `/terms` · `/privacy` · `/refund` | 이용약관·개인정보 처리방침·환불·배송 정책 (앱도 이 주소를 연다). 법률 검토 전 초안 |
 
