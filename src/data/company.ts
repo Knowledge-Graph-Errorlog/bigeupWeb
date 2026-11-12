@@ -7,8 +7,8 @@ export const COMPANY = {
   bizNo: '144-11-03318',
   mailOrderNo: '제2026-화성동탄-3936호',
   address: '경기도 화성시 동탄구 동탄대로 677-10, 2층 211호(영천동, 동탄 IT밸리)',
-  // ❓ 고객센터 전화(070·0505·080·휴대폰 가능)와 이메일은 아직 정하지 않았다. 정해지면 넣는다 (심사 전 필수)
-  phone: '' as string,
+  // 고객센터 전화 (2026-11-12 확정). 이메일은 아직 정하지 않았다 — 정해지면 넣는다
+  phone: '1551-9334' as string,
   email: '' as string,
   site: 'https://www.bigeup.com',
 } as const
