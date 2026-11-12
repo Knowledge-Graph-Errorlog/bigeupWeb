@@ -10,6 +10,8 @@ interface ImportMetaEnv {
   readonly VITE_APPLE_SERVICES_ID?: string
   /** 카카오 REST API 키 — 인가 코드 요청의 client_id. 토큰 교환은 서버가 한다 */
   readonly VITE_KAKAO_REST_KEY?: string
+  /** 네이버 로그인 Client ID. 서버 웹 로그인 주소와 NAVER_CLIENT_IDS 가 준비된 뒤 넣는다 (없으면 버튼이 안 보인다) */
+  readonly VITE_NAVER_CLIENT_ID?: string
   /** "1"이면 개발용 로그인 버튼 (개발 서버 dev-login). 운영 빌드에는 넣지 않는다 */
   readonly VITE_DEV_LOGIN?: string
 }
