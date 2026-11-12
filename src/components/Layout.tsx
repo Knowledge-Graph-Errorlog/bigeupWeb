@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
-import { COMPANY, contactText } from '../data/company'
+import { COMPANY } from '../data/company'
 import { logout, useLoggedIn } from '../lib/auth'
 import Logo from './Logo'
 
@@ -56,10 +56,10 @@ export default function Layout() {
               개인정보 처리방침
             </Link>
             <Link to="/refund" className="hover:underline">
-              환불 정책
+              환불·배송 정책
             </Link>
           </nav>
-          {/* 카드사 심사 필수: 상호·대표자·사업자등록번호·통신판매업 신고번호·주소·전화 (사업자등록증과 같게) */}
+          {/* 카드사 심사 필수: 상호·대표자·사업자등록번호·통신판매업 신고번호·주소·대표전화 (사업자등록증과 같게) */}
           <dl className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
             {[
               ['상호', COMPANY.name],
@@ -67,7 +67,8 @@ export default function Layout() {
               ['사업자등록번호', COMPANY.bizNo],
               ['통신판매업 신고번호', COMPANY.mailOrderNo],
               ['주소', COMPANY.address],
-              ['고객센터', contactText()],
+              ['대표전화(고객센터)', COMPANY.phone || '준비 중'],
+              ...(COMPANY.email ? [['이메일', COMPANY.email]] : []),
             ].map(([k, v]) => (
               <div key={k} className="flex gap-1">
                 <dt>{k}</dt>
