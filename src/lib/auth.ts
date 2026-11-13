@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from 'react'
 import { api, post, put, tokens, type Tokens } from './api'
 
-export type Provider = 'KAKAO' | 'GOOGLE' | 'APPLE' | 'NAVER'
+export type Provider = 'KAKAO' | 'GOOGLE' | 'APPLE' | 'NAVER' | 'REVIEW'
 export type NextStep = 'TERMS' | 'PROFILE' | 'HOME'
 export type Exam = 'HIGH3' | 'REPEAT' | 'OTHER'
 
@@ -43,6 +43,14 @@ export async function loginWithKakaoCode(code: string, redirectUri: string) {
  */
 export async function loginWithNaverCode(code: string, redirectUri: string) {
   return finish(await post<LoginResponse>('/api/v1/auth/naver/web', { code, redirectUri }, false))
+}
+
+/**
+ * 아이디 로그인 (테스트 계정). 결제사 심사는 소셜 로그인이 아닌 아이디·비밀번호 테스트 계정을 요구한다.
+ * 아이디·비밀번호는 서버 설정에만 있다 (backend docs/로그인-API.md 12). 일반 회원 가입 수단이 아니다.
+ */
+export async function reviewLogin(loginId: string, password: string) {
+  return finish(await post<LoginResponse>('/api/v1/auth/review-login', { loginId, password }, false))
 }
 
 /** 개발 서버 전용 (VITE_DEV_LOGIN) */
