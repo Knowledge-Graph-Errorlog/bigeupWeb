@@ -1,5 +1,5 @@
 import LegalPage, { Article, Items } from '../../components/LegalPage'
-import { COMPANY, contactText } from '../../data/company'
+import { COMPANY, SHOW_AI_TOPUP, contactText } from '../../data/company'
 
 // 개인정보 처리방침. ❓ 법률 검토 전 초안이다 (앱 가입 화면의 '개인정보 수집·이용'도 이 주소를 연다).
 // 항목은 frontend docs/출시-준비.md "앱이 다루는 정보"와 backend 저장 데이터(결제 포함)를 기준으로 썼다. 새 정보를 모으면 같이 고친다.
@@ -27,7 +27,7 @@ const ENTRUST = [
   { who: 'Amazon Web Services', what: '서버, 데이터 저장' },
   { who: 'Anthropic, PBC (미국)', what: 'AI 선생님 답변 생성, 손풀이 읽기 — 질문 내용과 손풀이 그림을 질문할 때마다 전송' },
   { who: 'Vercel Inc. (미국)', what: '웹사이트 운영' },
-  { who: 'Apple, Google', what: '앱 안 결제(AI 추가 사용량), 앱 배포' },
+  { who: 'Apple, Google', what: SHOW_AI_TOPUP ? '앱 안 결제(AI 추가 사용량), 앱 배포' : '앱 배포' },
 ]
 
 function Table({ head, rows }: { head: string[]; rows: string[][] }) {

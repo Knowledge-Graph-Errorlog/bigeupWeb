@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from 'react-router'
 import ProductCard from '../components/ProductCard'
+import { SHOW_AI_TOPUP } from '../data/company'
 import { PRODUCTS, SUBJECT_NAME, type Product, type Subject } from '../data/products'
 
 type Tab = 'all' | 'pass' | Subject
@@ -67,8 +68,8 @@ export default function PassShop() {
       </div>
 
       <p className="mt-14 rounded-2xl bg-paper-deep p-5 text-sm leading-relaxed text-ink-soft">
-        결제는 이 웹사이트에서만 할 수 있어요. 결제한 계정으로 태블릿 앱에 로그인하면 바로 풀 수 있어요. 질문을 다
-        쓰면 앱에서 약 100회를 4,000원에 추가할 수 있어요.
+        결제는 이 웹사이트에서만 할 수 있어요. 결제한 계정으로 태블릿 앱에 로그인하면 바로 풀 수 있어요.
+        {SHOW_AI_TOPUP && ' 질문을 다 쓰면 앱에서 약 100회를 4,000원에 추가할 수 있어요.'}
       </p>
     </div>
   )

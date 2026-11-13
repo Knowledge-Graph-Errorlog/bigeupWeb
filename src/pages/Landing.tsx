@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router'
 import { useComingSoon } from '../components/ComingSoon'
+import { SHOW_AI_TOPUP } from '../data/company'
 import { FAQS } from '../data/faq'
 import { findProduct, won, type Product } from '../data/products'
 
@@ -447,9 +448,11 @@ function Pricing() {
         <PriceCard product={pass} title="3권 패스" cta="3권 패스 받기" to="/checkout/pass-3" featured />
         <PriceCard product={single} title="단권" cta="단권 고르기" to="/pass" />
       </div>
-      <p className="mt-8 text-center text-sm text-ink-soft">
-        질문을 다 쓰면 앱에서 약 100회를 4,000원에 추가할 수 있어요.
-      </p>
+      {SHOW_AI_TOPUP && (
+        <p className="mt-8 text-center text-sm text-ink-soft">
+          질문을 다 쓰면 앱에서 약 100회를 4,000원에 추가할 수 있어요.
+        </p>
+      )}
     </Section>
   )
 }

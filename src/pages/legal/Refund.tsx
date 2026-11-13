@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import LegalPage, { Article, Items } from '../../components/LegalPage'
-import { COMPANY, USE_PERIOD, contactText } from '../../data/company'
+import { COMPANY, SHOW_AI_TOPUP, USE_PERIOD, contactText } from '../../data/company'
 
 // 환불·배송 정책. 토스페이먼츠 카드사 심사: 환불과 배송(무형 상품은 제공 방법·제공 기간) 정책이 자세히 보여야 한다.
 // ❓ 3문제 맛보기가 열리면 3번 항목에 "회사는 결제 전에 3문제 맛보기와 상품 설명으로 미리 확인할 기회를 드립니다."를 다시 넣는다 (2026-11-12에 뺌: 아직 없는 기능)
@@ -61,14 +61,16 @@ export default function Refund() {
         </p>
       </Article>
 
-      <Article title="6. 앱에서 산 AI 선생님 추가 사용량">
-        <p>
-          앱 안에서 산 AI 선생님 추가 사용량은 Apple App Store·Google Play로 결제되며, 환불은 각 스토어의 환불 정책과 절차를
-          따릅니다.
-        </p>
-      </Article>
+      {SHOW_AI_TOPUP && (
+        <Article title="6. 앱에서 산 AI 선생님 추가 사용량">
+          <p>
+            앱 안에서 산 AI 선생님 추가 사용량은 Apple App Store·Google Play로 결제되며, 환불은 각 스토어의 환불 정책과
+            절차를 따릅니다.
+          </p>
+        </Article>
+      )}
 
-      <Article title="7. 환불 요청과 처리">
+      <Article title={`${SHOW_AI_TOPUP ? 7 : 6}. 환불 요청과 처리`}>
         <Items>
           <li>고객센터({contactText()})로 결제한 계정과 주문 내용을 알려 주세요.</li>
           <li>회사는 요청을 받은 날부터 3영업일 안에 결제를 취소합니다. 결제한 수단으로 돌려드리며, 카드는 카드사에 따라 취소가 반영되기까지 3~7영업일이 걸릴 수 있습니다.</li>
