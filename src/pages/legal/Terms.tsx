@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import LegalPage, { Article, Items } from '../../components/LegalPage'
-import { COMPANY, USE_PERIOD, contactText } from '../../data/company'
+import { COMPANY, SHOW_AI_TOPUP, USE_PERIOD, contactText } from '../../data/company'
 
 // 이용약관. ❓ 법률 검토 전 초안이다 (앱 가입 화면의 '이용약관'도 이 주소를 연다).
 export default function Terms() {
@@ -49,7 +49,10 @@ export default function Terms() {
         <Items>
           <li>교재는 웹사이트에서 결제합니다. 결제는 토스페이먼츠를 통해 이루어집니다.</li>
           <li><strong className="text-ink">교재 이용 기간은 {USE_PERIOD}입니다.</strong></li>
-          <li>교재에는 상품 설명에 적힌 AI 선생님 질문 횟수가 포함됩니다. 횟수를 다 쓰면 앱에서 추가 사용량을 살 수 있습니다.</li>
+          <li>
+            교재에는 상품 설명에 적힌 AI 선생님 질문 횟수가 포함됩니다.
+            {SHOW_AI_TOPUP && ' 횟수를 다 쓰면 앱에서 추가 사용량을 살 수 있습니다.'}
+          </li>
           <li>이용 기간이 끝나도 회원의 공부 기록은 보관하며, 다시 구매하면 이어서 이용할 수 있습니다.</li>
         </Items>
       </Article>
