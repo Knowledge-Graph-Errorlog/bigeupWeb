@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router'
 import { ApiError, hasServer, tokens } from '../../lib/api'
-import { afterLogin, devLogin, loginWithIdToken, safeNext, type NextStep } from '../../lib/auth'
+import { afterLogin, devLogin, loginWithIdToken, reviewLogin, safeNext, type NextStep } from '../../lib/auth'
 import {
   APPLE_SERVICES_ID,
   DEV_LOGIN,
   GOOGLE_CLIENT_ID,
   KAKAO_REST_KEY,
+  REVIEW_LOGIN,
   NAVER_CLIENT_ID,
   appleSignIn,
   startCodeLogin,
@@ -46,7 +47,7 @@ export default function Login() {
 
   if (already) return <Navigate to={next} replace />
 
-  const none = !KAKAO_REST_KEY && !NAVER_CLIENT_ID && !GOOGLE_CLIENT_ID && !APPLE_SERVICES_ID && !DEV_LOGIN
+  const none = !KAKAO_REST_KEY && !NAVER_CLIENT_ID && !GOOGLE_CLIENT_ID && !APPLE_SERVICES_ID && !DEV_LOGIN && !REVIEW_LOGIN
 
   return (
     <div className="mx-auto max-w-md px-4 py-14 sm:py-20">
@@ -101,6 +102,8 @@ export default function Login() {
 
       {error && <p className="mt-6 rounded-lg bg-seal-soft px-4 py-3 text-sm text-seal-deep">{error}</p>}
 
+      {REVIEW_LOGIN && hasServer() && <IdLogin onDone={go} />}
+
       <p className="mt-10 text-center text-xs leading-relaxed text-ink-soft">
         처음이면 로그인한 뒤 약관 동의와 닉네임만 정하면 가입이 끝나요. 만 14세 이상만 가입할 수 있어요.
         <br />
@@ -124,5 +127,84 @@ function GoogleLogo() {
       <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
       <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
     </svg>
+  )
+}
+
+// 아이디로 로그인 (테스트 계정). 결제사 심사관이 소셜 계정 없이 상품 확인과 결제 테스트를 할 때 쓴다.
+// 일반 회원은 소셜 로그인만 쓴다 — 아이디 가입은 없다.
+function IdLogin({ onDone }: { onDone: (step: NextStep) => void }) {
+  const [open, setOpen] = useState(false)
+  const [loginId, setLoginId] = useState('')
+  const [password, setPassword] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+
+  const submit = async (e: FormEvent) => {
+    e.preventDefault()
+    setBusy(true)
+    setError('')
+    try {
+      onDone(await reviewLogin(loginId.trim(), password))
+    } catch (err) {
+      setError(
+        err instanceof ApiError && err.code === 'INVALID_REVIEW_LOGIN'
+          ? '아이디 또는 비밀번호가 올바르지 않아요.'
+          : err instanceof ApiError && err.code === 'NETWORK_ERROR'
+            ? '인터넷 연결을 확인하고 다시 시도해 주세요.'
+            : '로그인하지 못했어요. 다시 시도해 주세요.',
+      )
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <div className="mt-8 border-t border-line pt-6">
+      {!open ? (
+        <button type="button" onClick={() => setOpen(true)} className="mx-auto block text-sm text-ink-soft underline">
+          아이디로 로그인 (테스트 계정)
+        </button>
+      ) : (
+        <form onSubmit={submit} className="space-y-3">
+          <p className="text-sm font-bold">아이디로 로그인 (테스트 계정)</p>
+          <label className="block text-sm" htmlFor="review-id">
+            아이디
+            <input
+              id="review-id"
+              value={loginId}
+              onChange={(e) => setLoginId(e.target.value)}
+              autoComplete="username"
+              autoCapitalize="none"
+              autoFocus
+              maxLength={100}
+              className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-3"
+            />
+          </label>
+          <label className="block text-sm" htmlFor="review-password">
+            비밀번호
+            <input
+              id="review-password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+              maxLength={200}
+              className="mt-1 w-full rounded-xl border border-line bg-white px-4 py-3"
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={busy || loginId.trim() === '' || password === ''}
+            className="w-full rounded-xl bg-ink py-3.5 font-bold text-white disabled:opacity-40"
+          >
+            로그인
+          </button>
+          {error && <p className="rounded-lg bg-seal-soft px-4 py-3 text-sm text-seal-deep">{error}</p>}
+          <p className="text-xs leading-relaxed text-ink-soft">
+            안내받은 테스트 계정으로만 로그인할 수 있어요. 일반 회원은 위의 소셜 로그인을 이용해 주세요.
+          </p>
+        </form>
+      )}
+    </div>
   )
 }

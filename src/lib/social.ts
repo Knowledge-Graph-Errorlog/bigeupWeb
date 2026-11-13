@@ -6,6 +6,8 @@ export const APPLE_SERVICES_ID = import.meta.env.VITE_APPLE_SERVICES_ID ?? ''
 export const KAKAO_REST_KEY = import.meta.env.VITE_KAKAO_REST_KEY ?? ''
 /** 네이버 로그인 Client ID. 비어 있으면 네이버 버튼은 보이지 않는다 (서버 웹 로그인 주소가 생긴 뒤 넣는다) */
 export const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID ?? ''
+/** "1"이면 로그인 화면에 '아이디로 로그인'(테스트 계정)을 보여 준다. 결제사 심사가 끝나면 끈다 */
+export const REVIEW_LOGIN = import.meta.env.VITE_REVIEW_LOGIN === '1'
 export const DEV_LOGIN = import.meta.env.VITE_DEV_LOGIN === '1'
 
 // ── 카카오·네이버: 인가 화면으로 갔다가 코드(code)를 들고 돌아온다. 코드를 확인서로 바꾸는 일은 서버가 한다

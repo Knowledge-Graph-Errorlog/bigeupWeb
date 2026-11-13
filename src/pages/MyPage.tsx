@@ -6,7 +6,7 @@ import { getMe, logout, useLoggedIn, type Exam, type Me } from '../lib/auth'
 import { SUBJECTS, getBooks } from '../lib/pass'
 
 const EXAM: Record<Exam, string> = { HIGH3: '고3', REPEAT: 'N수', OTHER: '기타' }
-const PROVIDER: Record<string, string> = { KAKAO: '카카오', GOOGLE: '구글', APPLE: 'Apple', NAVER: '네이버', DEV: '개발용 로그인' }
+const PROVIDER: Record<string, string> = { KAKAO: '카카오', GOOGLE: '구글', APPLE: 'Apple', NAVER: '네이버', REVIEW: '테스트 계정 (아이디 로그인)', DEV: '개발용 로그인' }
 
 // 내 정보: 계정(닉네임·응시·로그인 방법), 가진 교재, 선택 동의, 로그아웃.
 // 닉네임·동의 바꾸기와 계정 삭제는 앱 설정 › 계정에서 한다 (웹은 보기만).
