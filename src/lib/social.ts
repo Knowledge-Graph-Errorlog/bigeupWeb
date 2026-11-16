@@ -53,6 +53,26 @@ export function takeCodeState(p: CodeProvider, state: string | null): { ok: bool
   }
 }
 
+// ── 태블릿 앱이 연 로그인: 앱은 네이버 로그인 창을 열 때 돌아올 주소로 이 웹의 콜백을 쓴다
+// (네이버 콘솔·서버에 등록된 주소가 웹 주소 하나라서). state 가 'app.' 으로 시작하면 앱에서 온 요청이다.
+// 그때는 코드를 여기서 쓰지 않고 그대로 앱으로 돌려보낸다 — 코드를 서버에 보내는 일은 앱이 한다 (앱은 PKCE 를 쓴다)
+export const APP_STATE_PREFIX = 'app.'
+/** 앱으로 돌아가는 주소 (앱이 받는 URL 스킴. frontend src/auth/socialConfig.ts 와 같은 값) */
+const APP_RETURN: Partial<Record<CodeProvider, string>> = { naver: 'bigeupnaverlogin://callback' }
+
+/** 앱에서 온 요청이면 앱으로 돌려보낼 주소 (code·state·error 를 그대로 붙임), 아니면 null */
+export function appReturnUrl(p: CodeProvider, params: URLSearchParams): string | null {
+  const base = APP_RETURN[p]
+  const state = params.get('state')
+  if (!base || !state?.startsWith(APP_STATE_PREFIX)) return null
+  const q = new URLSearchParams()
+  for (const k of ['code', 'state', 'error', 'error_description']) {
+    const v = params.get(k)
+    if (v) q.set(k, v)
+  }
+  return `${base}?${q}`
+}
+
 // ── 구글: 구글 로그인 페이지로 갔다가 확인서(id_token)를 주소의 # 뒤에 달고 돌아온다 (OpenID Connect implicit)
 // 구글이 주는 버튼(Google Identity Services)은 쓰지 않는다:
 //  - 브라우저에 구글 로그인이 남아 있으면 "○○ 계정으로 계속"(이름·이메일)으로 바뀌고 끌 수 없다

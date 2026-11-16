@@ -39,7 +39,7 @@ export async function loginWithKakaoCode(code: string, redirectUri: string) {
 
 /**
  * 네이버: 카카오와 같은 방식 (네이버 토큰 주소는 브라우저에서 부를 수 없어 서버가 코드를 확인서로 바꿔야 한다).
- * ❓ 서버에 이 주소가 아직 없다 — 생기면 주소·요청 모양을 backend docs/로그인-API.md 에 맞춘다. 그때까지 네이버 버튼은 숨겨 둔다.
+ * 서버 주소는 backend #45 (11/13, docs/로그인-API.md '웹 네이버 로그인'). 웹은 PKCE 를 쓰지 않아 codeVerifier 는 안 보낸다.
  */
 export async function loginWithNaverCode(code: string, redirectUri: string) {
   return finish(await post<LoginResponse>('/api/v1/auth/naver/web', { code, redirectUri }, false))
