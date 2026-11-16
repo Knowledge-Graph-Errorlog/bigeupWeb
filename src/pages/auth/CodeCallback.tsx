@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import { afterLogin, loginWithKakaoCode, loginWithNaverCode, safeNext } from '../../lib/auth'
-import { codeRedirectUri, takeCodeState, type CodeProvider } from '../../lib/social'
+import { appReturnUrl, codeRedirectUri, takeCodeState, type CodeProvider } from '../../lib/social'
 
 const NAME: Record<CodeProvider, string> = { kakao: '카카오', naver: '네이버' }
 const LOGIN = { kakao: loginWithKakaoCode, naver: loginWithNaverCode }
@@ -13,10 +13,16 @@ export default function CodeCallback({ provider }: { provider: CodeProvider }) {
   const [error, setError] = useState('')
   const once = useRef(false)
   const name = NAME[provider]
+  // 태블릿 앱이 연 로그인이면 코드를 쓰지 않고 앱으로 돌려보낸다 (lib/social.ts appReturnUrl)
+  const appUrl = useMemo(() => appReturnUrl(provider, params), [provider, params])
 
   useEffect(() => {
     if (once.current) return // 개발 모드에서 두 번 돌아도 코드는 한 번만 쓴다
     once.current = true
+    if (appUrl) {
+      window.location.replace(appUrl)
+      return
+    }
     const { ok, next } = takeCodeState(provider, params.get('state'))
     const code = params.get('code')
     if (params.get('error') || !code) {
@@ -30,7 +36,18 @@ export default function CodeCallback({ provider }: { provider: CodeProvider }) {
     LOGIN[provider](code, codeRedirectUri(provider))
       .then((step) => navigate(afterLogin(step, safeNext(next)), { replace: true }))
       .catch(() => setError(`${name} 로그인에 실패했어요. 다시 시도해 주세요.`))
-  }, [name, navigate, params, provider])
+  }, [appUrl, name, navigate, params, provider])
+
+  // 앱으로 자동으로 안 넘어가는 브라우저(안드로이드 크롬 등)를 위해 누르는 버튼도 둔다
+  if (appUrl)
+    return (
+      <div className="mx-auto max-w-md px-4 py-24 text-center">
+        <p className="text-ink-soft">기출비급 앱으로 돌아가는 중이에요…</p>
+        <a href={appUrl} className="mt-6 inline-block rounded-xl bg-seal px-5 py-3 font-bold text-white">
+          앱으로 돌아가기
+        </a>
+      </div>
+    )
 
   return (
     <div className="mx-auto max-w-md px-4 py-24 text-center">
