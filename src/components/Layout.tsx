@@ -26,7 +26,7 @@ export default function Layout() {
   return (
     <div className="flex min-h-svh flex-col">
       <header className="sticky top-0 z-40 border-b border-line bg-sheet/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-[1520px] items-center justify-between px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5 sm:px-8 lg:px-12">
           <div className="flex items-center gap-10">
             <Logo />
             {pathname === '/' && (
@@ -73,7 +73,7 @@ export default function Layout() {
       </main>
 
       <footer className="border-t border-line bg-paper-deep">
-        <div className="mx-auto max-w-[1520px] px-5 py-8 text-xs leading-relaxed text-ink-soft sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1200px] px-5 py-8 text-xs leading-relaxed text-ink-soft sm:px-8 lg:px-12">
           <nav className="flex flex-wrap gap-x-4 gap-y-1 font-bold text-ink">
             <Link to="/terms" className="hover:underline">
               이용약관

@@ -27,7 +27,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <p className="mt-1 text-sm text-ink-soft">AI 선생님 질문 약 {product.aiQuestions}회 포함</p>
         <p className="mt-3 text-xl font-bold">{won(product.price)}</p>
         {isPass && <p className="text-sm text-ink-soft">한 권에 9,300원</p>}
-        <div className="mt-4 grid gap-2 sm:grid-cols-2">
+        <div className="mt-auto grid gap-2 pt-4 sm:grid-cols-2">
           <Link
             to={`/pass/${product.id}`}
             className="rounded-lg border border-line bg-white py-2.5 text-center text-sm font-bold hover:bg-paper-deep"

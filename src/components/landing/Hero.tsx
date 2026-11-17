@@ -8,7 +8,7 @@ import PaperCheck from './PaperCheck'
 import { Container, Tablet, btnPen, btnQuiet } from './ui'
 
 const FACTS = ['2028 수능 수학 평가원 기출', '2022 개정 교육과정 반영', 'iPad, 갤럭시 탭에서 펜으로']
-const SIZES = '(min-width: 1520px) 1400px, 94vw'
+const SIZES = '(min-width: 1100px) 1040px, 94vw'
 
 // 첫 화면. 이 페이지에서 가장 힘을 주는 한 장면: 내 손풀이의 틀린 줄에 빨간 형광펜이 그어진다.
 // 앱의 실제 화면 두 장(점검 전·후)을 겹쳐 두고, 점검 후 화면을 왼쪽에서 오른쪽으로 드러낸다.
@@ -37,8 +37,8 @@ export default function Hero() {
 
   return (
     <section className="overflow-hidden bg-sheet">
-      <Container className="pt-12 sm:pt-16 lg:pt-20">
-        <h1 className="max-w-[18ch] text-[34px] leading-[1.24] font-extrabold tracking-[-0.035em] sm:max-w-none sm:text-[52px] sm:leading-[1.18] lg:text-[72px] lg:leading-[1.14]">
+      <Container className="pt-10 sm:pt-14 lg:pt-16">
+        <h1 className="text-[28px] leading-[1.3] font-bold tracking-[-0.035em] sm:text-[38px] lg:text-[46px] lg:leading-[1.26]">
           기출, 틀린 문제에
           <br />
           빨간 줄만 긋고 넘어가면
@@ -47,10 +47,9 @@ export default function Hero() {
           4등급이 나옵니다
         </h1>
 
-        <div className="mt-6 grid gap-8 lg:mt-9 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-          <p className="max-w-[40ch] text-[16px] leading-[1.7] text-ink-soft sm:text-[18px] lg:text-[19px]">
-            같은 문제를 다시 만났을 때 맞히려면, 내 풀이가 어디서 틀렸는지부터 알아야 해요. 기출비급은 태블릿에 펜으로 쓴
-            내 풀이를 읽고 틀린 줄을 짚어 줍니다.
+        <div className="mt-5 grid gap-6 lg:mt-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <p className="max-w-[36ch] text-[15px] leading-[1.7] text-ink-soft sm:text-[16px]">
+            기출비급은 태블릿에 펜으로 쓴 내 풀이를 읽고, 틀린 줄을 짚어 줍니다.
           </p>
           <div className="flex flex-col gap-2 sm:flex-row lg:justify-end">
             <Link to="/pass" className={btnPen} data-hero-cta>
@@ -62,7 +61,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-1.5 text-[14px] text-ink-soft sm:text-[15px] lg:mt-10">
+        <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-ink-faint lg:mt-8">
           {FACTS.map((f, i) => (
             <li key={f} className={i > 0 ? 'sm:border-l sm:border-line sm:pl-5' : ''}>
               {f}
@@ -71,8 +70,8 @@ export default function Hero() {
         </ul>
       </Container>
 
-      <Container className="mt-9 px-3 sm:mt-12 lg:mt-14">
-        <div ref={stage} className="relative z-10 mx-auto max-w-[1400px]">
+      <Container className="mt-8 px-3 sm:mt-10 lg:mt-12">
+        <div ref={stage} className="relative z-10 mx-auto max-w-[1040px]">
           {/* 휴대폰: 문제지와 AI 선생님 말만 크게 */}
           <div className="px-2 sm:hidden">
             <PaperCheck swept={swept} eager />
@@ -103,9 +102,9 @@ export default function Hero() {
       </Container>
 
       {/* 태블릿 아랫부분이 책상(다음 섹션 바탕)에 걸쳐 놓인다 */}
-      <div className="-mt-[24vw] bg-desk pt-[24vw] sm:-mt-[14vw] sm:pt-[14vw] lg:-mt-[150px] lg:pt-[150px]">
+      <div className="-mt-[24vw] bg-desk pt-[24vw] sm:-mt-[14vw] sm:pt-[14vw] lg:-mt-[130px] lg:pt-[130px]">
         <Container>
-          <p className="py-5 text-center text-[13px] text-ink-faint sm:text-[14px]">
+          <p className="py-5 text-center text-[13px] text-ink-faint">
             실제 앱 화면이에요. 2025학년도 수능 확률과 통계 28번을 풀고 ‘내 풀이 점검 받기’를 누른 모습입니다.
           </p>
         </Container>

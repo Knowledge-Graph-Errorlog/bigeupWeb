@@ -2,19 +2,19 @@ import type { ReactNode } from 'react'
 
 /** 본문 폭. 넓은 모니터에서 양옆이 비어 보이지 않게 1360px까지 */
 export function Container({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-[1520px] px-5 sm:px-8 lg:px-12 ${className}`}>{children}</div>
+  return <div className={`mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-12 ${className}`}>{children}</div>
 }
 
 export function SectionTitle({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <h2 className={`reveal text-[27px] leading-[1.3] font-extrabold tracking-[-0.03em] sm:text-[38px] lg:text-[46px] lg:leading-[1.22] ${className}`}>
+    <h2 className={`reveal text-[24px] leading-[1.35] font-bold tracking-[-0.03em] sm:text-[30px] lg:text-[34px] ${className}`}>
       {children}
     </h2>
   )
 }
 
 const btn =
-  'inline-flex h-[52px] items-center justify-center rounded-xl px-6 text-[16px] font-bold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2'
+  'inline-flex h-12 items-center justify-center rounded-xl px-6 text-[15px] font-bold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2'
 export const btnPen = `${btn} bg-pen text-white hover:bg-pen-deep focus-visible:outline-pen`
 /** 보조 버튼: 포인트 색의 아주 옅은 버전 */
 export const btnQuiet = `${btn} bg-pen-soft text-pen-deep hover:bg-[#f6dcdc] focus-visible:outline-pen`
