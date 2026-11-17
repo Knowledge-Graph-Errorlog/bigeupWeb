@@ -11,8 +11,8 @@ const ITEMS = [
 export default function SelfCheck() {
   return (
     <section className="bg-desk pt-14 pb-16 sm:pt-20 sm:pb-20 lg:pb-24">
-      <Container className="grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,6fr)] lg:gap-16">
-        <SectionTitle>
+      <Container className="grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,6fr)] lg:items-center lg:gap-16">
+        <SectionTitle className="sm:text-[34px]! lg:text-[42px]! lg:leading-[1.3]!">
           기출을 풀면서
           <br />
           이런 적 있었나요?
