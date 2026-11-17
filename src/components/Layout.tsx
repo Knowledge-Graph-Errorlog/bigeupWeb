@@ -2,11 +2,21 @@ import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { COMPANY } from '../data/company'
 import { useLoggedIn } from '../lib/auth'
+import { useSmoothAnchors } from '../hooks/useSmoothAnchors'
 import Logo from './Logo'
+
+// 랜딩에서만 보이는 페이지 안 이동 (PC)
+const ANCHORS = [
+  { href: '#how', label: '기능' },
+  { href: '#concept', label: '개념' },
+  { href: '#pricing', label: '가격' },
+  { href: '#faq', label: '자주 묻는 질문' },
+]
 
 export default function Layout() {
   const { pathname } = useLocation()
   const loggedIn = useLoggedIn()
+  useSmoothAnchors()
   // 페이지를 옮기면 맨 위로. scrollTo의 반환값(최신 Chrome은 Promise)을 effect에서 돌려주면
   // React가 정리 함수로 착각해 화면이 지워지므로, 블록으로 감싸 아무것도 돌려주지 않는다.
   useEffect(() => {
@@ -15,9 +25,20 @@ export default function Layout() {
 
   return (
     <div className="flex min-h-svh flex-col">
-      <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Logo />
+      <header className="sticky top-0 z-40 border-b border-line bg-sheet/90 backdrop-blur">
+        <div className="mx-auto flex h-16 max-w-[1520px] items-center justify-between px-5 sm:px-8 lg:px-12">
+          <div className="flex items-center gap-10">
+            <Logo />
+            {pathname === '/' && (
+              <nav aria-label="페이지 안 이동" className="hidden items-center gap-7 text-[15px] text-ink-soft lg:flex">
+                {ANCHORS.map((a) => (
+                  <a key={a.href} href={a.href} className="transition-colors hover:text-ink">
+                    {a.label}
+                  </a>
+                ))}
+              </nav>
+            )}
+          </div>
           <nav className="flex items-center gap-1 sm:gap-2">
             {loggedIn ? (
               <NavLink
@@ -52,7 +73,7 @@ export default function Layout() {
       </main>
 
       <footer className="border-t border-line bg-paper-deep">
-        <div className="mx-auto max-w-6xl px-4 py-8 text-xs leading-relaxed text-ink-soft sm:px-6">
+        <div className="mx-auto max-w-[1520px] px-5 py-8 text-xs leading-relaxed text-ink-soft sm:px-8 lg:px-12">
           <nav className="flex flex-wrap gap-x-4 gap-y-1 font-bold text-ink">
             <Link to="/terms" className="hover:underline">
               이용약관
