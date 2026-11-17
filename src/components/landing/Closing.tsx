@@ -19,7 +19,7 @@ const coverCls = 'block aspect-[480/657] w-full rounded-[6%/4.4%] object-cover s
 /** 2028 수능 범위 */
 export function Scope() {
   return (
-    <section className="bg-desk py-20 sm:py-28 lg:py-32">
+    <section className="bg-desk py-16 sm:py-20 lg:py-24">
       <Container className="grid items-center gap-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-20">
         <div>
           <SectionTitle>
@@ -27,9 +27,9 @@ export function Scope() {
             <br />
             기출만 담았어요
           </SectionTitle>
-          <p className="mt-6 max-w-[46ch] text-[16px] leading-[1.8] text-ink-soft sm:text-[18px]">
-            2028 수능부터는 2022 개정 교육과정 범위에서 출제돼요. 어떤 기출을 풀어야 할지 고르느라 더 이상 시간을 쓰지
-            마세요. 기출비급은 2022 개정 교육과정에 맞춰 모든 문항을 검토하고, 꼭 풀어야 할 문제만 남겼어요.
+          <p className="mt-6 max-w-[46ch] text-[15px] leading-[1.7] text-ink-soft sm:text-[16px]">
+            2028 수능은 2022 개정 교육과정 범위에서 출제돼요. 그 범위에 맞춰 모든 문항을 검토하고, 꼭 풀어야 할 문제만
+            남겼어요.
           </p>
         </div>
         <ul className="reveal grid grid-cols-3 items-end gap-3 sm:gap-5">
@@ -57,7 +57,7 @@ export function Pricing() {
   const pass = findProduct('pass-3')!
   const single = findProduct('prob')!
   return (
-    <section id="pricing" className="bg-sheet py-20 sm:py-28 lg:py-32">
+    <section id="pricing" className="bg-sheet py-16 sm:py-20 lg:py-24">
       <Container>
         <SectionTitle>
           확률과 통계, 대수, 미적분I
@@ -68,9 +68,9 @@ export function Pricing() {
         <div className="mt-10 grid gap-5 sm:mt-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
           <div className="grid gap-8 rounded-3xl border-2 border-ink p-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,220px)] sm:p-10">
             <div className="flex flex-col">
-              <p className="text-[17px] font-bold">3권 패스</p>
-              <p className="mt-2 text-[44px] leading-none font-extrabold tracking-[-0.04em] tabular-nums sm:text-[56px]">{won(pass.price)}</p>
-              <ul className="mt-7 space-y-3 text-[16px] leading-[1.55] sm:text-[17px]">
+              <p className="text-[15px] font-bold">3권 패스</p>
+              <p className="mt-2 text-[34px] leading-none font-bold tracking-[-0.04em] tabular-nums sm:text-[40px]">{won(pass.price)}</p>
+              <ul className="mt-7 space-y-2.5 text-[15px] leading-[1.55]">
                 {pass.perks.map((p) => (
                   <li key={p} className="flex gap-2.5">
                     <Check />
@@ -86,9 +86,9 @@ export function Pricing() {
           </div>
 
           <div className="flex flex-col rounded-3xl bg-desk p-6 sm:p-10">
-            <p className="text-[17px] font-bold">단권</p>
-            <p className="mt-2 text-[36px] leading-none font-extrabold tracking-[-0.04em] tabular-nums sm:text-[44px]">{won(single.price)}</p>
-            <ul className="mt-7 space-y-3 text-[16px] leading-[1.55] sm:text-[17px]">
+            <p className="text-[15px] font-bold">단권</p>
+            <p className="mt-2 text-[28px] leading-none font-bold tracking-[-0.04em] tabular-nums sm:text-[32px]">{won(single.price)}</p>
+            <ul className="mt-7 space-y-2.5 text-[15px] leading-[1.55]">
               {['원하는 과목 1권', ...single.perks.slice(1)].map((p) => (
                 <li key={p} className="flex gap-2.5">
                   <Check />
@@ -114,19 +114,19 @@ export function Pricing() {
 /** 자주 묻는 질문 */
 export function Faq() {
   return (
-    <section id="faq" className="bg-desk py-20 sm:py-28 lg:py-32">
+    <section id="faq" className="bg-desk py-16 sm:py-20 lg:py-24">
       <Container className="grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-20">
         <SectionTitle>자주 묻는 질문</SectionTitle>
         <div className="overflow-hidden rounded-2xl bg-sheet shadow-[0_1px_2px_rgba(20,22,26,0.06)]">
           {FAQS.map((f, i) => (
             <details key={f.q} className={`group ${i > 0 ? 'border-t border-line' : ''}`}>
-              <summary className="flex min-h-[64px] cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[16px] font-bold sm:px-7 sm:text-[18px] [&::-webkit-details-marker]:hidden">
+              <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between gap-4 px-5 py-3.5 text-[15px] font-bold sm:px-7 sm:text-[16px] [&::-webkit-details-marker]:hidden">
                 {f.q}
                 <svg viewBox="0 0 20 20" aria-hidden="true" className="size-5 shrink-0 text-ink-faint transition-transform duration-300 group-open:rotate-45">
                   <path d="M10 4v12M4 10h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                 </svg>
               </summary>
-              <p className="px-5 pb-6 text-[16px] leading-[1.75] text-ink-soft sm:px-7 sm:text-[17px]">{f.a}</p>
+              <p className="px-5 pb-5 text-[15px] leading-[1.7] text-ink-soft sm:px-7">{f.a}</p>
             </details>
           ))}
         </div>
@@ -138,14 +138,14 @@ export function Faq() {
 /** 마지막 안내. 바탕은 흰색으로 두고 빨강은 버튼에만 쓴다 */
 export function FinalCta() {
   return (
-    <section className="bg-sheet py-20 sm:py-28">
+    <section className="bg-sheet py-16 sm:py-20">
       <Container className="text-center">
-        <h2 className="reveal mx-auto text-[27px] leading-[1.32] font-extrabold tracking-[-0.03em] sm:text-[40px] lg:text-[48px]">
+        <h2 className="reveal mx-auto text-[24px] leading-[1.35] font-bold tracking-[-0.03em] sm:text-[30px] lg:text-[34px]">
           다음에 같은 문제를 만나면
           <br />
           맞힐 수 있게
         </h2>
-        <p className="mx-auto mt-5 max-w-[40ch] text-[16px] leading-[1.75] text-ink-soft sm:text-[18px]">
+        <p className="mx-auto mt-5 max-w-[40ch] text-[15px] leading-[1.7] text-ink-soft sm:text-[16px]">
           펜으로 푼 내 풀이에서 틀린 줄을 확인하고, 부족한 개념을 채우고, 다시 풀어 보세요.
         </p>
         <div className="mt-9 flex flex-col justify-center gap-2 sm:flex-row">

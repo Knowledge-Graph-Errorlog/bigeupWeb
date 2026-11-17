@@ -24,9 +24,9 @@ export default function BookCover({ product, className = '' }: { product: Produc
 
   // 3권 패스는 세 권을 겹쳐 보여 준다
   return (
-    <div className={`relative aspect-[480/560] ${className}`}>
+    <div className={`relative aspect-[480/657] ${className}`}>
       {product.subjects.map((s, i) => (
-        <div key={s} className="absolute w-[64%]" style={{ left: `${i * 18}%`, top: `${i * 7}%`, zIndex: i }}>
+        <div key={s} className="absolute w-[64%]" style={{ left: `${i * 18}%`, top: `${9 + i * 9}%`, zIndex: i }}>
           <Cover subject={s} />
         </div>
       ))}

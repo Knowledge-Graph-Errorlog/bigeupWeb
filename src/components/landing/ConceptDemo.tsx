@@ -24,7 +24,7 @@ export default function ConceptDemo() {
   const middle = concept.before.filter((b) => isMiddle(b.subject)).length
 
   return (
-    <section id="concept" className="bg-desk py-20 sm:py-28 lg:py-32">
+    <section id="concept" className="bg-desk py-16 sm:py-20 lg:py-24">
       <Container>
         <div className="grid gap-6 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
           <SectionTitle>
@@ -32,8 +32,8 @@ export default function ConceptDemo() {
             <br />
             개념이 몇 개나 필요할까요?
           </SectionTitle>
-          <p className="max-w-[46ch] text-[16px] leading-[1.75] text-ink-soft sm:text-[17px]">
-            문제를 고르고 개념을 눌러 보세요. 그 개념을 알기 전에 먼저 알아야 하는 개념이 중학교 과정까지 이어져 있어요.
+          <p className="max-w-[46ch] text-[15px] leading-[1.7] text-ink-soft sm:text-[16px]">
+            문제를 고르고 개념을 눌러 보세요. 먼저 알아야 하는 개념이 중학교 과정까지 이어져 있어요.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default function ConceptDemo() {
             </div>
 
             <p className="mt-8 font-exam text-[15px] text-ink-soft">확률과 통계 · {problem.label} [{problem.points}점]</p>
-            <p className="mt-2 text-[19px] leading-[1.5] font-bold tracking-[-0.02em] sm:text-[21px]">
+            <p className="mt-2 text-[17px] leading-[1.5] font-bold tracking-[-0.02em] sm:text-[18px]">
               이 문제에 쓰인 개념 {problem.concepts.length}개
             </p>
 
@@ -72,7 +72,7 @@ export default function ConceptDemo() {
                     type="button"
                     aria-pressed={c === i}
                     onClick={() => setC(i)}
-                    className={`min-h-11 rounded-lg border px-3.5 py-2 text-left text-[15px] leading-[1.35] font-bold transition-colors sm:text-[16px] ${
+                    className={`min-h-11 rounded-lg border px-3.5 py-2 text-left text-[14px] leading-[1.35] font-bold transition-colors sm:text-[15px] ${
                       c === i ? 'border-pen bg-pen-soft text-pen-deep' : 'border-line bg-sheet text-ink hover:border-ink-faint'
                     }`}
                   >
@@ -86,9 +86,9 @@ export default function ConceptDemo() {
           {/* 오른쪽: 고른 개념을 알려면 먼저 알아야 하는 개념 */}
           <div className="p-5 sm:p-8 lg:p-10" aria-live="polite">
             <p className="text-[15px] text-ink-soft">‘{concept.name}’{eul(concept.name)} 알려면 먼저 알아야 하는 개념</p>
-            <p className="mt-1 text-[30px] leading-[1.2] font-extrabold tracking-[-0.03em] tabular-nums sm:text-[38px]">
+            <p className="mt-1 text-[26px] leading-[1.2] font-bold tracking-[-0.03em] tabular-nums sm:text-[30px]">
               {concept.before.length}개
-              {middle > 0 && <span className="ml-3 text-[17px] font-bold tracking-[-0.01em] text-marker-deep sm:text-[19px]">그중 중학교 개념 {middle}개</span>}
+              {middle > 0 && <span className="ml-3 text-[15px] font-bold tracking-[-0.01em] text-marker-deep sm:text-[16px]">그중 중학교 개념 {middle}개</span>}
             </p>
 
             <dl key={`${p}-${c}`} className="mt-7 space-y-5">
@@ -99,7 +99,7 @@ export default function ConceptDemo() {
                     {g.items.map((b) => (
                       <span
                         key={b.name}
-                        className={`rounded-md px-2.5 py-1.5 text-[14px] leading-[1.3] sm:text-[15px] ${
+                        className={`rounded-md px-2.5 py-1.5 text-[13px] leading-[1.3] sm:text-[14px] ${
                           isMiddle(b.subject) ? 'bg-marker-soft font-bold text-marker-deep' : 'bg-desk text-ink'
                         }`}
                       >
@@ -114,7 +114,7 @@ export default function ConceptDemo() {
         </div>
 
         <p className="mt-4 text-[13px] leading-[1.6] text-ink-faint sm:text-[14px]">
-          앱에 실린 개념 연결을 그대로 보여 드려요. 앱에서는 이 개념들을 눌러 개념 책에서 바로 다시 볼 수 있어요.
+          앱에 실린 개념 연결을 그대로 보여 드려요.
         </p>
       </Container>
     </section>
