@@ -101,14 +101,12 @@ export default function Hero() {
         </div>
       </Container>
 
-      {/* 태블릿 아랫부분이 책상(다음 섹션 바탕)에 걸쳐 놓인다 */}
-      <div className="-mt-[24vw] bg-desk pt-[24vw] sm:-mt-[14vw] sm:pt-[14vw] lg:-mt-[130px] lg:pt-[130px]">
-        <Container>
-          <p className="py-5 text-center text-[13px] text-ink-faint">
-            실제 앱 화면이에요. 2025학년도 수능 확률과 통계 28번을 풀고 ‘내 풀이 점검 받기’를 누른 모습입니다.
-          </p>
-        </Container>
-      </div>
+      {/* 첫 화면은 흰 바탕 안에서 끝난다 (태블릿이 다음 섹션에 걸치지 않게) */}
+      <Container>
+        <p className="pt-5 pb-12 text-center text-[13px] text-ink-faint sm:pb-16 lg:pb-20">
+          실제 앱 화면이에요. 2025학년도 수능 확률과 통계 28번을 풀고 ‘내 풀이 점검 받기’를 누른 모습입니다.
+        </p>
+      </Container>
     </section>
   )
 }
