@@ -40,8 +40,8 @@ export default function Extras() {
             title="읽고 나면 혼자 써 낼 수 있는 해설"
             className="lg:col-span-6 lg:row-span-2"
             media={
-              <div className="mx-6 sm:mx-8">
-                <img src={explainB} srcSet={`${explainA} 640w, ${explainB} 1024w`} sizes="(min-width: 1024px) 40vw, 86vw" alt="해설 화면. 번호가 붙은 풀이 단계마다 그 단계에서 쓴 개념 이름표가 달려 있고, 수직선 그림, 다른 풀이, 사용된 공식이 이어진다." loading="lazy" decoding="async" className={`${shot} rounded-t-2xl`} />
+              <div className="mx-6 mb-6 sm:mx-8 sm:mb-8">
+                <img src={explainB} srcSet={`${explainA} 640w, ${explainB} 1024w`} sizes="(min-width: 1024px) 40vw, 86vw" alt="해설 화면. 번호가 붙은 풀이 단계마다 그 단계에서 쓴 개념 이름표가 달려 있고, 수직선 그림, 다른 풀이, 사용된 공식이 이어진다." loading="lazy" decoding="async" className={`${shot} rounded-2xl`} />
               </div>
             }
           >
@@ -64,8 +64,8 @@ export default function Extras() {
             title="개념 책"
             className="lg:col-span-6"
             media={
-              <div className="ml-6 overflow-hidden rounded-tl-2xl sm:ml-8 lg:h-[300px]">
-                <img src={bookB} srcSet={`${bookA} 800w, ${bookB} 1400w`} sizes="(min-width: 1024px) 50vw, 90vw" alt="개념 책의 중복조합 페이지. 뜻, 공식, 이해하기 순서로 설명이 이어진다." loading="lazy" decoding="async" className={`${shot} rounded-tl-2xl`} />
+              <div className="mx-6 mb-6 overflow-hidden rounded-2xl sm:mx-8 sm:mb-8 h-[240px] lg:h-[300px]">
+                <img src={bookB} srcSet={`${bookA} 800w, ${bookB} 1400w`} sizes="(min-width: 1024px) 40vw, 86vw" alt="개념 책의 중복조합 페이지. 뜻, 공식, 이해하기 순서로 설명이 이어진다." loading="lazy" decoding="async" className={`${shot} w-[135%]! max-w-none`} />
               </div>
             }
           >
@@ -76,8 +76,8 @@ export default function Extras() {
             title="오답 노트"
             className="lg:col-span-7"
             media={
-              <div className="ml-6 sm:ml-8">
-                <img src={noteB} srcSet={`${noteA} 900w, ${noteB} 1600w`} sizes="(min-width: 1024px) 50vw, 90vw" alt="오답 노트 화면. 왼쪽에 대표 개념별 묶음, 오른쪽에 미해결 오답 카드가 놓여 있다." loading="lazy" decoding="async" className={`${shot} rounded-tl-2xl`} />
+              <div className="mx-6 mb-6 sm:mx-8 sm:mb-8">
+                <img src={noteB} srcSet={`${noteA} 900w, ${noteB} 1600w`} sizes="(min-width: 1024px) 50vw, 90vw" alt="오답 노트 화면. 왼쪽에 대표 개념별 묶음, 오른쪽에 미해결 오답 카드가 놓여 있다." loading="lazy" decoding="async" className={`${shot} rounded-2xl`} />
               </div>
             }
           >
@@ -88,7 +88,7 @@ export default function Extras() {
             title="유형별, 쉬운 문제부터"
             className="lg:col-span-5"
             media={
-              <div className="mx-6 h-[280px] overflow-hidden rounded-t-2xl sm:mx-8 lg:h-[250px]">
+              <div className="mx-6 mb-6 h-[280px] overflow-hidden rounded-2xl sm:mx-8 sm:mb-8 lg:h-[250px]">
                 <img src={toc} alt="기출 목차. 중복조합 유형 안에서 3점, 4점 난이도 하, 중, 상 순서로 문제 번호가 놓여 있다." loading="lazy" decoding="async" className={`${shot} -mt-[38%]`} />
               </div>
             }
