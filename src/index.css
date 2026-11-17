@@ -1,28 +1,65 @@
 @import 'tailwindcss';
 
-/* 임시 색. 브랜드 색이 정해지면 여기만 바꾼다. */
+/* 브랜드 색: 메인 #B20F0F(빨간 펜), 서브 #05BECC(형광펜). 2026-11-17 확정 */
 @theme {
-  --font-sans: 'Noto Sans KR', ui-sans-serif, system-ui, sans-serif;
-  --color-paper: #faf7f0;
-  --color-paper-deep: #f1ebdd;
-  --color-ink: #1c1917;
-  --color-ink-soft: #57534e;
-  --color-line: #e7e0d2;
-  --color-seal: #b4231f;
-  --color-seal-deep: #8f1915;
-  --color-seal-soft: #fbe9e7;
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', sans-serif;
+  /* 시험지 글꼴 (앱의 문제 글과 같은 나눔명조). 시험지를 닮은 곳에만 쓴다 */
+  --font-exam: 'Nanum Myeongjo', 'Noto Serif KR', serif;
 
-  /* 과목별 표지 색 */
-  --color-book-prob: #2f4a6d;
-  --color-book-algebra: #3d6b4f;
-  --color-book-calc: #7a4a2a;
+  /* 책상(바탕)과 종이 */
+  --color-desk: #eef0f3;
+  --color-desk-deep: #e2e5ea;
+  --color-sheet: #ffffff;
+  --color-ink: #14161a;
+  --color-ink-soft: #5a616d;
+  --color-ink-faint: #8b929e;
+  --color-line: #dadee4;
+
+  --color-pen: #b20f0f;
+  --color-pen-deep: #8e0c0c;
+  --color-pen-soft: #fbeded;
+  --color-marker: #05becc;
+  --color-marker-deep: #04808a;
+  --color-marker-soft: #dff7f9;
+
+  /* 예전 이름 (기출비급패스·결제·약관 화면이 쓴다) → 새 색으로 */
+  --color-paper: var(--color-desk);
+  --color-paper-deep: var(--color-desk-deep);
+  --color-seal: var(--color-pen);
+  --color-seal-deep: var(--color-pen-deep);
+  --color-seal-soft: var(--color-pen-soft);
+
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 html {
-  scroll-behavior: smooth;
+  /* 고정 헤더(64px)만큼 앵커 위치를 내린다. 부드러운 이동은 useSmoothAnchors 가 한다 */
+  scroll-padding-top: 80px;
 }
 
 body {
-  @apply bg-paper text-ink antialiased;
+  @apply bg-desk text-ink antialiased;
   word-break: keep-all;
+  font-feature-settings: 'ss06';
+}
+
+/* 화면에 들어올 때 한 번 나타난다. 섹션 제목과 대표 그림에만 쓴다 (JS가 없으면 그냥 보인다) */
+.js .reveal {
+  opacity: 0;
+  translate: 0 22px;
+  transition:
+    opacity 0.8s var(--ease-out-quart),
+    translate 0.8s var(--ease-out-quart);
+}
+.js .reveal.is-in {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    translate: 0 0;
+    transition: none;
+  }
 }
