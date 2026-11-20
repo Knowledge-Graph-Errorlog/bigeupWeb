@@ -18,10 +18,10 @@
   --color-pen: #b20f0f;
   --color-pen-deep: #8e0c0c;
   --color-pen-soft: #fbeded;
-  /* 둘째 강조색 (개념 장면에서 개념을 구분할 때만). 종이색과 어울리는 황토색 */
-  --color-marker: #d99a2b;
-  --color-marker-deep: #855a0c;
-  --color-marker-soft: #fbedcf;
+  /* 둘째 강조색 (개념 장면에서 개념을 구분할 때만). 초록색 */
+  --color-marker: #2fa35f;
+  --color-marker-deep: #1c7a43;
+  --color-marker-soft: #e1f3e7;
 
   /* 예전 이름 (기출비급패스·결제·약관 화면이 쓴다) → 새 색으로 */
   --color-paper: var(--color-desk);
