@@ -26,19 +26,18 @@ export default function Layout() {
   return (
     <div className="flex min-h-svh flex-col">
       <header className="sticky top-0 z-40 border-b border-line bg-sheet/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5 sm:px-8 lg:px-12">
-          <div className="flex items-center gap-10">
-            <Logo />
-            {pathname === '/' && (
-              <nav aria-label="페이지 안 이동" className="hidden items-center gap-7 text-[15px] text-ink-soft lg:flex">
+        <div className="relative mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5 sm:px-8 lg:px-12">
+          <Logo />
+          {/* 헤더 한가운데 (로고·오른쪽 메뉴 폭과 상관없이) */}
+          {pathname === '/' && (
+              <nav aria-label="페이지 안 이동" className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-[15px] text-ink-soft lg:flex">
                 {ANCHORS.map((a) => (
                   <a key={a.href} href={a.href} className="transition-colors hover:text-ink">
                     {a.label}
                   </a>
                 ))}
               </nav>
-            )}
-          </div>
+          )}
           <nav className="flex items-center gap-1 sm:gap-2">
             {loggedIn ? (
               <NavLink
