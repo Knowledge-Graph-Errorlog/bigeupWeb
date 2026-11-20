@@ -1,17 +1,19 @@
 import { Link, useLocation } from 'react-router'
+import logo from '../assets/logo.webp'
 
-// 글자 로고. 디자이너 로고가 오면 이 컴포넌트만 바꾼다 (지금은 로고 그림 없이 이름만).
+// 가로형 로고 (디자이너 원본: 브랜딩/로고_가로ver.png, 바탕 투명)
 export default function Logo({ className = '' }: { className?: string }) {
   const { pathname } = useLocation()
-  const cls = `inline-flex items-center text-[19px] font-extrabold tracking-[-0.03em] ${className}`
+  const cls = `inline-flex items-center ${className}`
+  const img = <img src={logo} alt="기출비급" width={361} height={132} className="block h-8 w-auto sm:h-9" />
   // 랜딩에서는 맨 위로 미끄러지듯 올라간다 (useSmoothAnchors)
   return pathname === '/' ? (
     <a href="#top" className={cls} aria-label="기출비급 맨 위로">
-      기출비급
+      {img}
     </a>
   ) : (
     <Link to="/" className={cls} aria-label="기출비급 홈">
-      기출비급
+      {img}
     </Link>
   )
 }

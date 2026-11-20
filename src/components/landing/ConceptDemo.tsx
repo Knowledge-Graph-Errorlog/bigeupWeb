@@ -5,7 +5,7 @@ import { Container, SectionTitle } from './ui'
 // 개념마다 색 하나. 문제 위 표시, 옆 설명, 아래 개념 카드가 같은 색을 쓴다.
 const TONE = {
   C0291: { solid: 'bg-pen', soft: 'bg-pen-soft', text: 'text-pen-deep', stroke: '#b20f0f' },
-  C0057: { solid: 'bg-marker-deep', soft: 'bg-marker-soft', text: 'text-marker-deep', stroke: '#04808a' },
+  C0057: { solid: 'bg-marker-deep', soft: 'bg-marker-soft', text: 'text-marker-deep', stroke: '#855a0c' },
   C0448: { solid: 'bg-ink', soft: 'bg-desk-deep', text: 'text-ink', stroke: '#14161a' },
 } as const
 type ConceptId = keyof typeof TONE
@@ -78,7 +78,7 @@ function Figure() {
         {/* ① 그래프와 x축 사이 */}
         <path d="M100.5 238.5 L600 138 L900 238.5 Z" fill="#b20f0f" fillOpacity="0.09" />
         {/* ② 원점과 (b, c)를 잇는 선 */}
-        <line x1="100.5" y1="238.5" x2="600" y2="138" stroke="#05becc" strokeOpacity="0.45" strokeWidth="16" strokeLinecap="round" />
+        <line x1="100.5" y1="238.5" x2="600" y2="138" stroke="#d99a2b" strokeOpacity="0.45" strokeWidth="16" strokeLinecap="round" />
         <g stroke="#14161a" fill="none">
           <line x1="0" y1="238.5" x2="1016" y2="238.5" strokeWidth="1.6" />
           <line x1="100.5" y1="350" x2="100.5" y2="14" strokeWidth="1.6" />
@@ -306,7 +306,7 @@ export default function ConceptDemo() {
                   {c.before.map((b) => (
                     <li
                       key={b.name}
-                      className={`rounded-md px-2 py-1 text-[13px] leading-[1.3] ${isMiddle(b.subject) ? 'bg-marker-soft font-bold text-marker-deep' : 'bg-desk text-ink'}`}
+                      className={`rounded-md px-2 py-1 text-[13px] leading-[1.3] ${isMiddle(b.subject) ? 'bg-marker-soft font-bold text-marker-deep' : 'bg-desk-deep text-ink'}`}
                     >
                       {b.name}
                     </li>
