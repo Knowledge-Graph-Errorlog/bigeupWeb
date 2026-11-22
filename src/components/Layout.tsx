@@ -61,7 +61,7 @@ export default function Layout() {
                 }`
               }
             >
-              기출비급패스
+              비급교재 구매
             </NavLink>
           </nav>
         </div>

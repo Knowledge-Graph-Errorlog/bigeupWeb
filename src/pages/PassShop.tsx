@@ -29,10 +29,10 @@ export default function PassShop() {
           HOME
         </Link>
         <span className="mx-1.5">›</span>
-        <span>기출비급패스</span>
+        <span>비급교재 구매</span>
       </nav>
 
-      <h1 className="mt-4 text-3xl font-bold sm:text-4xl">기출비급패스</h1>
+      <h1 className="mt-4 text-3xl font-bold sm:text-4xl">비급교재 구매</h1>
       <p className="mt-2 text-ink-soft">2028 수능 수학 평가원 기출을 iPad, 갤럭시 탭에서 펜으로 풀어요.</p>
 
       <div className="mt-8 border-y border-line py-4">
