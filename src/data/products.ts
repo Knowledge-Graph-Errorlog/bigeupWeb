@@ -19,6 +19,14 @@ export const SUBJECT_NAME: Record<Subject, string> = {
   calc: '미적분Ⅰ',
 }
 
+/** 과목(수학·과학·영어)과 그 아래 세부 과목. 교재가 아직 없는 과목은 subjects를 비워 둔다 — 구매 페이지에 '준비 중'으로 보인다 */
+export type Area = 'math' | 'science' | 'english'
+export const AREAS: { key: Area; name: string; subjects: Subject[] }[] = [
+  { key: 'math', name: '수학', subjects: ['prob', 'algebra', 'calc'] },
+  { key: 'science', name: '과학', subjects: [] },
+  { key: 'english', name: '영어', subjects: [] },
+]
+
 const PERIOD = `${USE_PERIOD} 이용`
 
 export const PRODUCTS: Product[] = [
