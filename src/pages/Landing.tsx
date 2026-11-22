@@ -1,4 +1,4 @@
-import { Faq, FinalCta, MobileBar, Pricing, Scope } from '../components/landing/Closing'
+import { BuyBanner, Faq, FinalCta, Pricing, Scope } from '../components/landing/Closing'
 import ConceptDemo from '../components/landing/ConceptDemo'
 import Extras from '../components/landing/Extras'
 import Hero from '../components/landing/Hero'
@@ -22,7 +22,7 @@ export default function Landing() {
       <Pricing />
       <Faq />
       <FinalCta />
-      <MobileBar />
+      <BuyBanner />
     </div>
   )
 }

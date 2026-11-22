@@ -78,8 +78,8 @@ export function Pricing() {
                   </li>
                 ))}
               </ul>
-              <Link to="/checkout/pass-3" className={`mt-9 sm:self-start sm:px-10 ${btnPen}`}>
-                3권 패스 받기
+              <Link to="/pass" className={`mt-9 sm:self-start sm:px-10 ${btnPen}`}>
+                3권 패스 구매하기
               </Link>
             </div>
             <BookCover product={pass} className="mx-auto w-full max-w-[220px] max-sm:order-first max-sm:max-w-[170px]" />
@@ -149,8 +149,8 @@ export function FinalCta() {
           펜으로 푼 내 풀이에서 틀린 줄을 확인하고, 부족한 개념을 채우고, 다시 풀어 보세요.
         </p>
         <div className="mt-9 flex flex-col justify-center gap-2 sm:flex-row">
-          <Link to="/checkout/pass-3" className={`sm:px-9 ${btnPen}`}>
-            3권 패스 받기 {won(findProduct('pass-3')!.price)}
+          <Link to="/pass" className={`sm:px-9 ${btnPen}`}>
+            3권 패스 구매하기 {won(findProduct('pass-3')!.price)}
           </Link>
           <Link to="/pass" className={`sm:px-9 ${btnLine}`}>
             과목별로 보기
@@ -161,47 +161,51 @@ export function FinalCta() {
   )
 }
 
-/** 휴대폰 하단 고정 버튼. 첫 화면의 버튼이 화면 밖으로 나간 뒤에 나타나고, 가격 칸·하단 정보가 보일 때는 숨는다 */
-export function MobileBar() {
+/**
+ * 스크롤해도 따라다니는 구매 배너. PC는 오른쪽 아래, 좁은 화면은 아래 가운데.
+ * 첫 화면의 구매 버튼이 화면 밖으로 나간 뒤에 나타나고, 맨 아래 사업자 정보가 보일 때는 가리지 않게 숨는다.
+ */
+export function BuyBanner() {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    if (!('IntersectionObserver' in window)) return
+    if (!('IntersectionObserver' in window)) {
+      setShow(true)
+      return
+    }
     const hero = document.querySelector('[data-hero-cta]')
-    const hide = [document.getElementById('pricing'), document.querySelector('footer')].filter(Boolean) as Element[]
-    let heroGone = false
-    const covered = new Set<Element>()
-    const update = () => setShow(heroGone && covered.size === 0)
+    const footer = document.querySelector('footer')
+    let heroGone = !hero
+    let atFooter = false
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) {
         if (e.target === hero) heroGone = !e.isIntersecting && e.boundingClientRect.top < 0
-        else if (e.isIntersecting) covered.add(e.target)
-        else covered.delete(e.target)
+        else atFooter = e.isIntersecting
       }
-      update()
+      setShow(heroGone && !atFooter)
     })
     if (hero) io.observe(hero)
-    hide.forEach((el) => io.observe(el))
+    if (footer) io.observe(footer)
     return () => io.disconnect()
   }, [])
 
+  const pass = findProduct('pass-3')!
   return (
-    <div
+    <Link
+      to="/pass"
       aria-hidden={!show}
-      className={`fixed inset-x-0 bottom-0 z-30 border-t border-line bg-sheet/95 px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur transition-transform duration-300 lg:hidden ${
-        show ? 'translate-y-0' : 'pointer-events-none translate-y-full'
+      tabIndex={show ? 0 : -1}
+      className={`fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 z-30 flex w-[calc(100%-2rem)] max-w-[420px] -translate-x-1/2 items-center gap-4 rounded-2xl bg-pen py-3 pr-3 pl-5 text-white shadow-[0_10px_30px_-8px_rgba(142,12,12,0.55)] transition-[opacity,translate,background-color] duration-300 hover:bg-pen-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pen lg:right-6 lg:bottom-6 lg:left-auto lg:w-auto lg:translate-x-0 ${
+        show ? 'opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
       }`}
     >
-      <div className="flex items-center gap-4">
-        <p className="min-w-0 flex-1 text-[14px] leading-[1.35] text-ink-soft">
-          3권 패스
-          <br />
-          <strong className="text-[17px] font-extrabold text-ink tabular-nums">{won(findProduct('pass-3')!.price)}</strong>
-        </p>
-        <Link to="/pass/pass-3" tabIndex={show ? 0 : -1} className={`h-[48px] shrink-0 px-7 ${btnPen}`}>
-          패스 보기
-        </Link>
-      </div>
-    </div>
+      <span className="min-w-0 flex-1 text-[13px] leading-[1.4] text-white/85">
+        기출비급 3권 패스
+        <br />
+        <strong className="text-[17px] font-extrabold text-white tabular-nums">{won(pass.price)}</strong>
+        <span className="ml-1.5">한 권에 9,300원</span>
+      </span>
+      <span className="inline-flex h-11 shrink-0 items-center rounded-xl bg-white px-4 text-[15px] font-bold text-pen-deep">구매하기</span>
+    </Link>
   )
 }

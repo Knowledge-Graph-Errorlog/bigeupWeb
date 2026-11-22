@@ -53,7 +53,7 @@ export default function Hero() {
           </p>
           <div className="flex flex-col gap-2 sm:flex-row lg:justify-end">
             <Link to="/pass" className={btnPen} data-hero-cta>
-              기출비급패스 보기
+              비급교재 구매하기
             </Link>
             <a href="#how" className={btnQuiet}>
               어떻게 짚어 주는지 보기

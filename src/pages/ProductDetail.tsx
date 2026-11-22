@@ -17,7 +17,7 @@ export default function ProductDetail() {
         </Link>
         <span className="mx-1.5">›</span>
         <Link to="/pass" className="hover:underline">
-          기출비급패스
+          비급교재 구매
         </Link>
         <span className="mx-1.5">›</span>
         <span>{product.name}</span>
