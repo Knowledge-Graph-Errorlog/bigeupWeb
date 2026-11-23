@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import ProductCard from '../components/ProductCard'
 import { SHOW_AI_TOPUP } from '../data/company'
-import { AREAS, PRODUCTS, SUBJECT_NAME, type Area, type Product, type Subject } from '../data/products'
+import { AREAS, PRODUCTS, areaReady, type Product, type Subject } from '../data/products'
 
 type Kind = Product['kind']
 const KINDS: { key: Kind; label: string }[] = [
@@ -43,11 +43,12 @@ export default function PassShop() {
   const kindRaw = params.get('kind') ?? (old === 'pass' ? 'pass' : null)
   const subRaw = params.get('sub') ?? (old && old !== 'pass' ? old : null)
   const kind = KINDS.find((k) => k.key === kindRaw)?.key ?? null
-  const areaFromSub = AREAS.find((a) => a.subjects.includes(subRaw as Subject))
-  const area = AREAS.find((a) => a.key === params.get('area') && a.subjects.length > 0) ?? areaFromSub ?? null
-  const sub = area && area.subjects.includes(subRaw as Subject) ? (subRaw as Subject) : null
+  const areaFromSub = AREAS.find((a) => a.subs.some((x) => x.key === subRaw && x.ready))
+  const area = AREAS.find((a) => a.key === params.get('area')) ?? areaFromSub ?? null
+  // 세부 과목은 교재가 나온 것만 고를 수 있다
+  const sub = area?.subs.find((x) => x.key === subRaw && x.ready)?.key ?? null
 
-  const set = (next: { kind?: Kind | null; area?: Area | null; sub?: Subject | null }) => {
+  const set = (next: { kind?: Kind | null; area?: string | null; sub?: string | null }) => {
     const v = { kind, area: area?.key ?? null, sub, ...next }
     if (!v.area) v.sub = null
     const q: Record<string, string> = {}
@@ -57,9 +58,9 @@ export default function PassShop() {
     setParams(q, { replace: true })
   }
 
-  const items = PRODUCTS.filter(
-    (p) => (!kind || p.kind === kind) && (!area || p.subjects.every((s) => area.subjects.includes(s))) && (!sub || p.subjects.includes(sub)),
-  )
+  const inArea = (p: Product) => !area || p.subjects.every((s) => area.subs.some((x) => x.key === s))
+  const items = PRODUCTS.filter((p) => (!kind || p.kind === kind) && inArea(p) && (!sub || p.subjects.includes(sub as Subject)))
+  const comingSoon = area !== null && !areaReady(area)
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
@@ -91,25 +92,26 @@ export default function PassShop() {
             전체
           </Chip>
           {AREAS.map((a) => {
-            const empty = a.subjects.length === 0
+            const soon = !areaReady(a)
             return (
-              <Chip key={a.key} on={area?.key === a.key} disabled={empty} onClick={() => set({ area: a.key, sub: null })}>
+              <Chip key={a.key} on={area?.key === a.key} onClick={() => set({ area: a.key, sub: null })}>
                 {a.name}
-                {empty && <span className="ml-1.5 text-xs font-normal">준비 중</span>}
+                {soon && <span className="ml-1.5 text-xs font-normal opacity-70">준비 중</span>}
               </Chip>
             )
           })}
         </Row>
 
         {/* 과목을 고르면 그 아래 세부 과목이 열린다 */}
-        {area && (
+        {area && area.subs.length > 0 && (
           <Row label="세부 과목">
             <Chip on={!sub} onClick={() => set({ sub: null })}>
               {area.name} 전체
             </Chip>
-            {area.subjects.map((s) => (
-              <Chip key={s} on={sub === s} onClick={() => set({ sub: s })}>
-                {SUBJECT_NAME[s]}
+            {area.subs.map((x) => (
+              <Chip key={x.key} on={sub === x.key} disabled={!x.ready} onClick={() => set({ sub: x.key })}>
+                {x.name}
+                {!x.ready && <span className="ml-1.5 text-xs font-normal">준비 중</span>}
               </Chip>
             ))}
           </Row>
@@ -127,7 +129,7 @@ export default function PassShop() {
           ))}
         </div>
       ) : (
-        <p className="mt-4 rounded-2xl bg-white p-8 text-center text-sm text-ink-soft">고른 조건에 맞는 교재가 없어요.</p>
+        <p className="mt-4 rounded-2xl bg-white p-8 text-center text-sm text-ink-soft">{comingSoon ? `${area.name} 교재는 준비 중이에요.` : '고른 조건에 맞는 교재가 없어요.'}</p>
       )}
 
       <p className="mt-14 rounded-2xl bg-paper-deep p-5 text-sm leading-relaxed text-ink-soft">
